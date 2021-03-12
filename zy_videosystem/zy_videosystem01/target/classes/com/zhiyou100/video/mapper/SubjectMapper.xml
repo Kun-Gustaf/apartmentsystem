@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyou100.video.mapper.SubjectMapper">
+    <resultMap id="subjectMap" type="subject">
+        <id property="id" column="id"/>
+        <result property="subjectName" column="subject_name"/>
+    </resultMap>
+    <select id="querySubjectById" resultMap="subjectMap">
+        select * from subject where id = #{id}
+    </select>
+    <select id="queryAllSubjects" resultMap="subjectMap">
+        select * from subject
+    </select>
+</mapper>

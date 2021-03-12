@@ -30,22 +30,18 @@ public class AdminController {
         return mav;
     }
     @RequestMapping("/admin/login.action")
-    public ModelAndView adminLogin(HttpServletRequest req, String loginName, String loginPwd){
+    public String adminLogin(HttpServletRequest req, String loginName, String loginPwd){
         Admin admin = adminService.getAdminByNameAndPwd(loginName, loginPwd);
         ModelAndView mav = new ModelAndView();
         HttpSession session = req.getSession();
         if(admin !=null){
             List<Course> courses = courseService.getAllCourse();
             session.setAttribute("session_admin",admin);
-            req.setAttribute("results",courses);
-            courses.forEach(System.out::println);
             System.out.println(admin);
-            mav.setViewName("/admin/course/index");
-            return mav;
+            return  "forward:/admin/course/index.action";
         }else {
             req.setAttribute("message","你的用户名或密码错误！");
-            mav.setViewName("/admin/login");
-            return mav;
+            return  "/admin/login";
         }
         //return mav;
     }

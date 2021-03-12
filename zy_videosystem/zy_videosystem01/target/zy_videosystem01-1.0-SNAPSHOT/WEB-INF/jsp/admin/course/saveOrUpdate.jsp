@@ -21,7 +21,7 @@
   			<h2>添加课程 - 课程管理</h2>
 		</div>
 		
-		<form class="form-horizontal" action="admin/course/saveOrUpdate.do" method="post">
+		<form class="form-horizontal" action="admin/course/saveOrUpdate.action" method="post">
 		<c:if test="${not empty course }">
 			<input type="hidden" name="id" value="${course.id }" }>
 		</c:if>

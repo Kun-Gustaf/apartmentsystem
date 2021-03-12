@@ -22,7 +22,7 @@
 		<div class="jumbotron">
   			<h2>课程列表 - 课程管理</h2>
 		</div>
-		<div class="row"><a href="${pageContext.request.contextPath}/admin/course/add.do" class="btn btn-primary">添加课程</a></div>
+		<div class="row"><a href="${pageContext.request.contextPath}/admin/course/add.action" class="btn btn-primary">添加课程</a></div>
 		<table class="table table-hover">
  			<thead>
  				<tr>
@@ -35,12 +35,12 @@
  				</tr>
  			</thead>
  			<tbody>
- 			<c:forEach items="${results }" var="co" varStatus="i">
+ 			<c:forEach items="${results}" var="co" varStatus="i">
  				<tr>
  					<td>${i.index+1 }</td>
  					<td>${co.courseName }</td>
  					<td>${co.subjectName }</td>
- 					<td>${co.courseDescr }</td>
+ 					<td>${co.courseDesc }</td>
  					<td><a href="${pageContext.request.contextPath}/admin/course/edit.action?id=${co.id }"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
  					<td><a href="${pageContext.request.contextPath}/admin/course/delete.action?id=${co.id }"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
  				</tr>

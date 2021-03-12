@@ -1,10 +1,9 @@
 package com.zhiyou100.video.model;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component("subject")
+@Repository
 public class Subject {
-
     private Integer id;
     private String subjectName;
 
@@ -16,12 +15,12 @@ public class Subject {
         this.subjectName = subjectName;
     }
 
-    public Integer getSubjectId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setSubjectId(Integer subjectId) {
-        this.id = subjectId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getSubjectName() {
@@ -35,7 +34,7 @@ public class Subject {
     @Override
     public String toString() {
         return "Subject{" +
-                "subjectId=" + id +
+                "id=" + id +
                 ", subjectName='" + subjectName + '\'' +
                 '}';
     }

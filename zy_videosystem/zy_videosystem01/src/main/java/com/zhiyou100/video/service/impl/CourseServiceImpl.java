@@ -17,4 +17,24 @@ public class CourseServiceImpl implements CourseService {
         System.out.println(courseMapper);
         return courseMapper.queryAllCourses();
     }
+
+    @Override
+    public Course getCourse(Integer id) {
+        return courseMapper.queryCourseById(id);
+    }
+
+    @Override
+    public void deleteCourse(Integer id) {
+        courseMapper.deleteCourseById(id);
+    }
+
+    @Override
+    public void updateCourse(Course course) {
+        courseMapper.updateCourse(course);
+    }
+
+    @Override
+    public void addCourse(Course course) {
+        courseMapper.addCourse(course);
+    }
 }

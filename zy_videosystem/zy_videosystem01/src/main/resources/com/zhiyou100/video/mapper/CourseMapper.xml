@@ -13,8 +13,23 @@
         <result property="subjectId" column="subject_id"/>
         <result property="subjectName" column="subject_name"/>
     </resultMap>
+    <insert id="addCourse">
+        insert into course(course_name,course_desc,insert_time,update_time,subject_id) values (#{courseName},#{courseDesc},#{insertTime},#{updateTime},#{subjectId})
+
+    </insert>
+    <update id="updateCourse" >
+        update course set course_name = #{courseName},course_desc = #{courseDesc},update_time = #{updateTime},subject_id = #{subjectId}
+    </update>
+    <delete id="deleteCourseById">
+        delete from course where id = #{id}
+    </delete>
 
     <select id="queryAllCourses" resultMap="courseMap">
         select * from course,subject where course.subject_id = subject.id
     </select>
+    <select id="queryCourseById" resultMap="courseMap">
+        select * from course,subject where course.subject_id = subject.id where course.id = #{id}
+    </select>
+
+
 </mapper>

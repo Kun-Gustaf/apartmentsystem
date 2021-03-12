@@ -7,23 +7,15 @@ import java.util.List;
 
 @Repository
 public interface CourseMapper {
-    /*@Results(
-            id = "userMap",
-            value = {
-                    @Result(id = true,property = "id",column = "id"),
-                    @Result(property="courseName", column="course_name"),
-                    @Result(property="courseDesc", column="course_desc"),
-                    @Result(property="insertTime", column="insert_time"),
-                    @Result(property="updateTime", column="update_time"),
-                    @Result(property="subjectId", column="subject_id"),
-                    @Result(column ="subject_id",
-                            property = "subject",
-                            one = @One(select = "com.zhiyou100.video.mapper.SubjectMapper.querySubjectById",fetchType = FetchType.EAGER)
-                    )
-            }
-    )
-    @Select("select * from course,subject where course.subject_id = subject.id")*/
-    List<Course> queryAllCourses();
-
+    //查找所有的课程信息
+   List<Course> queryAllCourses();
+    //通过id查找课程信息
+   Course queryCourseById(Integer id);
+    //添加课程信息
+    void addCourse(Course course);
+    //修改课程信息
+    void updateCourse(Course course);
+    //通过id删除课程
+    void deleteCourseById(Integer id);
 
 }
