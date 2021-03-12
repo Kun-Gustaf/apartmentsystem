@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyou100.video.mapper.AdminMapper">
+    <resultMap id="adminMap" type="Admin">
+        <id property="id" column="id"/>
+        <result property="loginName" column="login_name"/>
+        <result property="loginPwd" column="login_pwd"/>
+    </resultMap>
+    <select id="queryAllAdmins" resultMap="adminMap">
+        select * from admin
+    </select>
+    <select id="queryAdminByNameAndPwd" resultMap="adminMap">
+        select * from admin where login_name = #{loginName} and login_pwd = #{loginPwd}
+    </select>
+
+
+</mapper>

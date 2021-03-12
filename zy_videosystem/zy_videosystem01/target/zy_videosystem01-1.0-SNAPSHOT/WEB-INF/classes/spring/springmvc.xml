@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--开启注解驱动 配置 处理器映射器和处理器适配器-->
+    <mvc:annotation-driven/>
+
+
+    <!--开启扫描controller组件-->
+    <context:component-scan base-package="com.zhiyou100.video.controller"/>
+
+    <!--配置视图解析器 开启前后缀-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="viewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--配置全局异常处理器-->
+    <bean class="com.zhiyou100.video.exception.NotFoundException"/>
+
+    <!--配置文件上传实现类-->
+    <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" name="multipartResolver">
+        <property name="maxUploadSize" value="#{1024*1024*100}"/>
+    </bean>
+
+    <!--配置自定义的拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--映射后端服务器请求的资源路径  ** 代表所有包含子目录中的请求-->
+            <mvc:mapping path="/**"/>
+            <!--排除那些资源不拦截-->
+            <mvc:exclude-mapping path="/index.action"/>
+            <bean class="com.zhiyou100.video.interceptor.MyInterceptor" />
+        </mvc:interceptor>
+        <!--<mvc:interceptor>
+            &lt;!&ndash;映射后端服务器请求的资源路径  ** 代表所有包含子目录中的请求&ndash;&gt;
+            <mvc:mapping path="/**"/>
+
+            <bean class="com.zhiyou100.video.interceptor.MyIntercept02" />
+        </mvc:interceptor>-->
+    </mvc:interceptors>
+
+    <mvc:default-servlet-handler/>
+</beans>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyou100.video.mapper.CourseMapper">
+
+    <resultMap id="courseMap" type="course">
+        <id property="id" column="id"/>
+        <result property="courseName" column="course_name"/>
+        <result property="courseDesc" column="course_desc"/>
+        <result property="insertTime" column="insert_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="subjectId" column="subject_id"/>
+        <result property="subjectName" column="subject_name"/>
+    </resultMap>
+
+    <select id="queryAllCourses" resultMap="courseMap">
+        select * from course,subject where course.subject_id = subject.id
+    </select>
+</mapper>

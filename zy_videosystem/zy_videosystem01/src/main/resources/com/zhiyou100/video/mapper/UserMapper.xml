@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--映射对应的接口文件-->
+<mapper namespace="com.zhiyou100.video.mapper.UserMapper">
+    <resultMap id="userMap" type="user">
+        <id property="id" column="id"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="sex" column="sex"/>
+        <result property="birthday" column="birthday"/>
+        <result property="email" column="email"/>
+        <result property="province" column="province"/>
+        <result property="city" column="city"/>
+        <result property="headUrl" column="head_url"/>
+        <result property="password" column="password"/>
+        <result property="insertTime" column="insert_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="captcha" column="captcha"/>
+    </resultMap>
+
+
+    <insert id="addUser" parameterType="user">
+        insert  into user(nick_name,sex,birthday,email,province,city,head_url,password,insert_time,update_time,captcha)
+        values(#{id},#{nickName},#{sex},#{birthday},#{email},#{province},#{city},#{headUrl},#{password},#{insertTime},#{updateTime},#{captcha})
+    </insert>
+    <update id="updateUser" >
+
+    </update>
+    <delete id="deleteUserById" parameterType="Integer">
+        delete form user where id = #{id}
+    </delete>
+
+    <select id="queryAllUsers" resultMap="userMap">
+        select * from user
+    </select>
+    <select id="queryUserById" parameterType="Integer" resultType="com.zhiyou100.video.model.User">
+        select * from user where id = #{id}
+    </select>
+    <select id="queryUserByEmailAndPwd" resultMap="userMap">
+        select * from user where email = #{email} and password = #{password}
+    </select>
+
+</mapper>
