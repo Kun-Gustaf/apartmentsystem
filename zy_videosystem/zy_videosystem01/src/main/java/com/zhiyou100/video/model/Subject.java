@@ -1,9 +1,12 @@
 package com.zhiyou100.video.model;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public class Subject {
+import java.io.Serializable;
+
+@Component
+public class Subject implements Serializable {
     private Integer id;
     private String subjectName;
 

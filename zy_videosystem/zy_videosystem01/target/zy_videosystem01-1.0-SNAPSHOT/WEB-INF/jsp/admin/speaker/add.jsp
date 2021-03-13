@@ -59,15 +59,15 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="speakerDescr" class="col-sm-2 control-label">简介</label>
+    <label for="speakerDesc" class="col-sm-2 control-label">简介</label>
     <div class="col-sm-10">
-      <textarea class="form-control" name="speakerDescr" id="speakerDescr" rows="3"></textarea>
+      <textarea class="form-control" name="speakerDesc" id="speakerDesc" rows="3"></textarea>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <button type="submit" class="btn  btn-primary">保存</button>
-      <a href="admin/speaker/index.do" class="btn btn-default">返回列表</a>
+      <a href="admin/speaker/index.action" class="btn btn-default">返回列表</a>
     </div>
   </div>
 </form>

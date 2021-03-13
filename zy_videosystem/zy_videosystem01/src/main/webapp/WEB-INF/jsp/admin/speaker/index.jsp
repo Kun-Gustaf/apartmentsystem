@@ -21,16 +21,16 @@
 		<div class="jumbotron">
   			<h2>主讲人列表 - 主讲人管理</h2>
 		</div>
-		<div class="row"><a href="admin/speaker/add.do" class="btn btn-primary">添加主讲人</a>
+		<div class="row"><a href="admin/speaker/toSaveOrUpdate.action" class="btn btn-primary">添加主讲人</a>
 		<div style="float: right;">
-			<form class="form-inline" action="admin/speaker/index.do" method="post">
+			<form class="form-inline" action="admin/speaker/fuzzyQuery.action" method="post">
 			  <div class="form-group">
 			    <label for="exampleInputName2">名称</label>
-			    <input type="text" class="form-control" name="queryName" id="exampleInputName2" value="${queryName }" placeholder="主讲人名称">
+			    <input type="text" class="form-control" name="speakerName" id="exampleInputName2" value="${queryName}" placeholder="主讲人名称">
 			  </div>
 			  <div class="form-group">
 			    <label for="exampleInputEmail2">职位</label>
-			    <input type="text" class="form-control" name="queryJob" id="exampleInputEmail2" value="${queryJob }" placeholder="主讲人职位">
+			    <input type="text" class="form-control" name="speakerJob" id="exampleInputEmail2" value="${queryJob }" placeholder="主讲人职位">
 			  </div>
 			  <button type="submit" class="btn btn-primary">查询</button>
 			</form>
@@ -47,20 +47,20 @@
  					<th>删除</th>
  				</tr>
  			</thead>
- 			<tbody>
- 				<c:if test="${not empty pageInfo }">
- 					<c:forEach items="${pageInfo.results }" var="sp" varStatus="i">
+ 			<tbody><%--pageInfo--%>
+ 				<c:if test="${not empty results}">
+ 					<c:forEach items="${results}" var="sp" varStatus="i">
 		 				<tr>
 		 					<td>${i.index+1 }</td>
 		 					<td>${sp.speakerName }</td>
 		 					<td>${sp.speakerJob }</td>
-		 					<td>${sp.speakerDescr}</td>
-		 					<td><a href="admin/speaker/edit.do?id=${sp.id }"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
-		 					<td><a href="admin/speaker/delete.do?id=${sp.id }"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+		 					<td>${sp.speakerDesc}</td>
+		 					<td><a href="admin/speaker/toSaveOrUpdate.action?id=${sp.id }"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
+		 					<td><a href="admin/speaker/delete.action?id=${sp.id}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 		 				</tr>
 	 				</c:forEach>
  				</c:if>
- 				<c:if test="${empty pageInfo }">
+ 				<c:if test="${empty results}">
  					<tr><td>当前查询结果为空!</td></tr>
  				</c:if>
  			</tbody>
@@ -69,7 +69,7 @@
 		<jsp:include page="../page.jsp"></jsp:include>
 	</div>
 
-	<form id="pageForm" action="admin/speaker/index.do" method="post">
+	<form id="pageForm" action="admin/speaker/index.action" method="post">
 		<input type="hidden" name="queryName" value="${queryName }">
 		<input type="hidden" name="queryJob" value="${queryJob }">
 		<input type="hidden" name="pageNum" value="${pageNum }" id="queryPage">

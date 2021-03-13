@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyou100.video.mapper.SpeakerMapper">
+    <resultMap id="speakerMap" type="speaker">
+        <id property="id" column="id"/>
+        <result property="speakerName" column="speaker_name"/>
+        <result property="speakerJob" column="speaker_job"/>
+        <result property="speakerHeadUrl" column="speaker_head_url"/>
+        <result property="speakerDesc" column="speaker_desc"/>
+        <result property="insertTime" column="insert_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <insert id="addSpeaker">
+        insert into speaker(speaker_name,speaker_job,speaker_head_url,speaker_desc,insert_time) values (#{speakerName},#{speakerJob},#{speakerHeadUrl},#{speakerDesc},#{insertTime})
+    </insert>
+    <update id="updateSpeaker">
+        update speaker set speaker_name = #{speakerName},speaker_job=#{speakerJob},speaker_head_url=#{speakerHeadUrl},speaker_desc=#{speakerDesc} ,update_time=#{updateTime} where id = #{id}
+    </update>
+    <delete id="deleteSpeakerById">
+        delete from speaker where id = #{id}
+    </delete>
+    <select id="queryAllSpeakers" resultMap="speakerMap">
+        select * from speaker
+    </select>
+    <select id="querySpeakerById" resultMap="speakerMap">
+        select * from speaker where id = #{id}
+    </select>
+    <select id="querySpeakers" resultMap="speakerMap">
+        select * from speaker where
+        <if test="speakerName != '' and speakerName != null">
+            speaker_name = '%' #{speakerName} '%'
+        </if>
+         <if test="speakerJob != '' and speakerJob != null">
+            and speakerJob = '%' #{speakerJob} '%'
+          </if>
+    </select>
+</mapper>

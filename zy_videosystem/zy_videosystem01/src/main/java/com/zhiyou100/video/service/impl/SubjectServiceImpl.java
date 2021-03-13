@@ -1,6 +1,7 @@
 package com.zhiyou100.video.service.impl;
 
 import com.zhiyou100.video.mapper.SubjectMapper;
+import com.zhiyou100.video.model.Subject;
 import com.zhiyou100.video.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

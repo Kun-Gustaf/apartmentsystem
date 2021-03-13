@@ -39,7 +39,7 @@
   			<h2>编辑主讲人 - 主讲人管理</h2>
 		</div>
 		
-<form class="form-horizontal" action="admin/speaker/edit.do" method="post">
+<form class="form-horizontal" action="admin/speaker/edit.action" method="post">
 <input type="hidden" name="id" value="${speaker.id }">
   <div class="form-group">
     <label for="speakerName" class="col-sm-2 control-label">名字</label>
@@ -68,7 +68,7 @@
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <button type="submit" class="btn  btn-primary">保存</button>
-      <a href="admin/speaker/index.do" class="btn btn-default">返回列表</a>
+      <a href="admin/speaker/index.action" class="btn btn-default">返回列表</a>
     </div>
   </div>
 </form>

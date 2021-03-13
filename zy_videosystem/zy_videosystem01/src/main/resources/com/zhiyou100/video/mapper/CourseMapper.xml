@@ -18,7 +18,7 @@
 
     </insert>
     <update id="updateCourse" >
-        update course set course_name = #{courseName},course_desc = #{courseDesc},update_time = #{updateTime},subject_id = #{subjectId}
+        update course set course_name = #{courseName},course_desc = #{courseDesc},update_time = #{updateTime} ,subject_id = #{subjectId} where course.id = #{id}
     </update>
     <delete id="deleteCourseById">
         delete from course where id = #{id}
@@ -28,7 +28,7 @@
         select * from course,subject where course.subject_id = subject.id
     </select>
     <select id="queryCourseById" resultMap="courseMap">
-        select * from course,subject where course.subject_id = subject.id where course.id = #{id}
+        select * from course,`subject` where course.subject_id = `subject` .id and course.id = #{id}
     </select>
 
 

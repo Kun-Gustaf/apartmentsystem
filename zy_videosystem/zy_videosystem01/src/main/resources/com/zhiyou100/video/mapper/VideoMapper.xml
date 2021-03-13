@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyou100.video.mapper.VideoMapper">
+    <cache/>
+    <resultMap id="videoMap" type="Video">
+        <id property="id" column="id"/>
+        <result property="videoTitle" column="video_title"/>
+        <result property="speakerId" column="speaker_id"/>
+        <result property="courseId" column="course_id"/>
+        <result property="videoLength" column="video_length"/>
+        <result property="videoImageUrl" column="video_image_url"/>
+        <result property="videoUrl" column="video_url"/>
+        <result property="videoDesc" column="video_desc"/>
+        <result property="insertTime" column="insert_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="videoPlayTimes" column="video_play_times"/>
+        <association property="speaker" javaType="speaker">
+            <id property="id" column="id"/>
+            <result property="speakerName" column="speaker_name"/>
+            <result property="speakerJob" column="speaker_job"/>
+            <result property="speakerHeadUrl" column="speaker_head_url"/>
+            <result property="speakerDesc" column="speaker_desc"/>
+            <result property="insertTime" column="insert_time"/>
+            <result property="updateTime" column="update_time"/>
+        </association>
+        <association property="course" javaType="course">
+            <id property="id" column="id"/>
+            <result property="courseName" column="course_name"/>
+            <result property="courseDesc" column="course_desc"/>
+            <result property="insertTime" column="insert_time"/>
+            <result property="updateTime" column="update_time"/>
+            <result property="subjectId" column="subject_id"/>
+        </association>
+    </resultMap>
+    <sql id="selectAll" >
+         select  * from  video,course,speaker where video.speaker_id = speaker.id and video.course_id = course.id
+    </sql>
+
+    <insert id="addVideo">
+        insert into video(video_title,speaker_id,course_id,video_length,video_image_url,video_url,video_desc,insert_time,video_play_times)
+         values (#{videoTitle},#{speakerId},#{courseId},#{videoLength},#{videoImageUrl},#{videoUrl},#{videoDesc},#{insertTime},#{videoPlayTimes})
+    </insert>
+    <update id="updateVideo">
+        update video set video_title = #{videoTitle},speaker_id = #{speakerId},course_id =#{courseId},video_length=#{videoLength},
+        video_image_url=#{videoImageUrl},video_url=#{videoUrl},video_desc=#{videoDesc},update_time=#{updateTime},video_play_times=#{videoPlayTimes} where id = #{id}
+    </update>
+    <delete id="deleteVideo">
+        delete from video where id = #{id}
+    </delete>
+    <select id="queryAllVideo" resultMap="videoMap">
+        select video.id,video_title,video_desc,speaker_name,course_name,video_length,video_play_times from  video,course,speaker where video.speaker_id = speaker.id and video.course_id = course.id
+    </select>
+    <select id="queryVideo" resultMap="videoMap">
+        select video.id,video_title,video_desc,speaker_name,course_name,video_length,video_play_times from  video,course,speaker where video.speaker_id = speaker.id and video.course_id = course.id
+        <if test="videoTitle != '' and videoTitle != null">
+            and  video_title like '%' #{videoTitle} '%'
+        </if>
+        <if test="speakerId != '' and speakerId != null">
+            and  speaker_id = #{speakerId}
+        </if>
+        <if test="courseId != '' and courseId != null">
+            and   course_id = #{courseId}
+        </if>
+    </select>
+    <select id="queryVideoById" resultMap="videoMap">
+        select * from video where id = #{id}
+    </select>
+</mapper>

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
@@ -22,18 +23,24 @@ public class AdminController {
     @Autowired
     private CourseService courseService;
 
-    @RequestMapping("/admin/toLogin.action")
+    @RequestMapping("/toLogin.action")
     public ModelAndView toAdminLogin(HttpServletRequest req){
         req.getSession().setAttribute("BaseContext", req.getContextPath()+"/");
         ModelAndView mav = new ModelAndView();
         mav.setViewName("/admin/login");
         return mav;
     }
-    @RequestMapping("/admin/login.action")
+    @RequestMapping("/login.action")
     public String adminLogin(HttpServletRequest req, String loginName, String loginPwd){
-        Admin admin = adminService.getAdminByNameAndPwd(loginName, loginPwd);
-        ModelAndView mav = new ModelAndView();
         HttpSession session = req.getSession();
+
+        Object admin1 = session.getAttribute("session_admin");
+        System.out.println(admin1);
+        if(admin1 == null){
+            return "forward:/admin/course/index.action";
+        }
+        Admin admin = adminService.getAdminByNameAndPwd(loginName, loginPwd);
+
         if(admin !=null){
             List<Course> courses = courseService.getAllCourse();
             session.setAttribute("session_admin",admin);
@@ -43,6 +50,12 @@ public class AdminController {
             req.setAttribute("message","你的用户名或密码错误！");
             return  "/admin/login";
         }
-        //return mav;
+    }
+
+    @RequestMapping("/logout.action")
+    public String logout(HttpServletRequest req){
+        HttpSession session = req.getSession();
+        session.removeAttribute("session_admin");
+        return "/front/index";
     }
 }
