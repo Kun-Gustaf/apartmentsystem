@@ -37,7 +37,7 @@ public class AdminController {
         Object admin1 = session.getAttribute("session_admin");
         System.out.println(admin1);
         if(admin1 == null){
-            return "forward:/admin/course/index.action";
+            return "forward:/admin/speaker/index.action";
         }
         Admin admin = adminService.getAdminByNameAndPwd(loginName, loginPwd);
 

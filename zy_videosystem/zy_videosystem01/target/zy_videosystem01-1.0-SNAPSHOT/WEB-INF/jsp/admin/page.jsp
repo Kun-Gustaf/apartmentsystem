@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%-- created by zhouyanchao on 2017年7月27日 下午3:06:27 --%>    
-
-
 <!-- 分页显示 -->
 <nav aria-label="Page navigation">
   <ul class="pagination">
