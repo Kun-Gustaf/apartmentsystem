@@ -15,5 +15,4 @@
         select * from admin where login_name = #{loginName} and login_pwd = #{loginPwd}
     </select>
 
-
 </mapper>

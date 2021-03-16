@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%-- created by zhouyanchao on 2017年7月11日 下午5:04:04 --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +48,7 @@
         </thead>
         <tbody>
         <c:if test="${not empty pageInfo }">
-            <c:forEach items="${pageInfo.results }" var="sp" varStatus="i">
+            <c:forEach items="${pageInfo.results}" var="sp" varStatus="i">
                 <tr>
                     <td>${i.index+1 }</td>
                     <td>${sp.speakerName }</td>
@@ -66,13 +65,13 @@
         </tbody>
     </table>
 
-    <jsp:include page="../page.jsp"></jsp:include>
+    <jsp:include page="../page.jsp"/>
 </div>
 
 <form id="pageForm" action="${pageContext.request.contextPath}/admin/speaker/index.action" method="post">
-    <input type="hidden" name="queryName" value="${queryName }">
-    <input type="hidden" name="queryJob" value="${queryJob }">
-    <input type="hidden" name="pageNum" value="${pageNum }" id="queryPage">
+    <input type="hidden" name="queryName" value="${queryName}">
+    <input type="hidden" name="queryJob" value="${queryJob}">
+    <input type="hidden" name="pageNum" value="${pageInfo.pageNum}" id="queryPage">
 </form>
 
 <script src="static/js/jquery-1.12.4.min.js"></script>
@@ -82,8 +81,6 @@
         $('#queryPage').val(page);
         $('#pageForm').submit();
     }
-
 </script>
-
 </body>
 </html>

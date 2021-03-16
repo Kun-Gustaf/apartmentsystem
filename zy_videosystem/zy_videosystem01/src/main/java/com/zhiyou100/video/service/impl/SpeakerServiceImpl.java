@@ -12,17 +12,13 @@ import java.util.List;
 //主讲人业务实现类
 @Service
 public class SpeakerServiceImpl implements SpeakerService {
+
     @Autowired
     private SpeakerMapper speakerMapper;
 
-    @Override
-    public List<Speaker> getAllSpeaker() {
+   @Override
+    public List<Speaker> getAllSpeakers() {
         return speakerMapper.queryAllSpeakers();
-    }
-
-    @Override
-    public List<Speaker> querySpeakers(String speakerName, String speakerJob) {
-        return speakerMapper.querySpeakers(speakerName, speakerJob);
     }
 
     @Override
@@ -57,19 +53,15 @@ public class SpeakerServiceImpl implements SpeakerService {
         int startIndex = (pageNum - 1) * pageSize;
         map.put("startIndex",startIndex);
         List<Speaker> results = speakerMapper.queryAllSpeaker(map);
-        System.out.println("--------------------------------");
-        if(results!=null){
-            results.forEach(System.out::println);
-        }
         //results 总计录值
         //总页码数
-        int pageNums = allNum % pageSize == 0  ? allNum % pageSize : allNum % pageSize + 1;
+        int pageNums = allNum / pageSize == 0  ? allNum / pageSize : allNum / pageSize + 1;
         PageModel<Speaker> pageModel = new PageModel<>();
         pageModel.setAllNum(allNum);
         pageModel.setPageNum(pageNum);
         pageModel.setPageNums(pageNums);
         pageModel.setResults(results);
-
+        pageModel.setPageSize(pageSize);
         return pageModel;
     }
 }

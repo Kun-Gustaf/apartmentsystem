@@ -54,15 +54,18 @@
     </select>
     <select id="queryVideo" resultMap="videoMap">
         select video.id,video_title,video_desc,speaker_name,course_name,video_length,video_play_times from  video,course,speaker where video.speaker_id = speaker.id and video.course_id = course.id
-        <if test="videoTitle != '' and videoTitle != null">
-            and  video_title like '%' #{videoTitle} '%'
-        </if>
-        <if test="speakerId != '' and speakerId != null">
-            and  speaker_id = #{speakerId}
-        </if>
-        <if test="courseId != '' and courseId != null">
-            and   course_id = #{courseId}
-        </if>
+        <where>
+            <if test="videoTitle != '' and videoTitle != null">
+                video_title like '%' #{videoTitle} '%'
+            </if>
+            <if test="speakerId != '' and speakerId != null">
+                and speaker_id = #{speakerId}
+            </if>
+            <if test="courseId != '' and courseId != null">
+                and course_id = #{courseId}
+            </if>
+        </where>
+
     </select>
     <select id="queryVideoById" resultMap="videoMap">
         select * from video where id = #{id}

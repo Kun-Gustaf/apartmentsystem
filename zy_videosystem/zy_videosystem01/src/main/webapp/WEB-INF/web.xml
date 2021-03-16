@@ -65,12 +65,20 @@
             <param-value>UTF-8</param-value>
         </init-param>
     </filter>
-
     <filter-mapping>
         <filter-name>CharacterEncodingFilter</filter-name>
         <url-pattern>*.action</url-pattern>
     </filter-mapping>
 
+    <!-- 添加过滤器，解决basepath路径的问题 -->
+    <filter>
+        <filter-name>ContextPath</filter-name>
+        <filter-class>com.zhiyou100.video.filter.ContextFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ContextPath</filter-name>
+        <url-pattern>*.action</url-pattern>
+    </filter-mapping>
     <welcome-file-list>
         <welcome-file>index.action</welcome-file>
     </welcome-file-list>

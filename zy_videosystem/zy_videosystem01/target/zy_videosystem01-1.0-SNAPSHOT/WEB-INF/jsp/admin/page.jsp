@@ -15,22 +15,22 @@
 	    </li>
     </c:if>
     
-    <c:forEach begin="1" end="${pageInfo.pageNums }" step="1" var="i">
-    	 <c:if test="${pageInfo.pageNum==i }"> 
-    		<li class="active"><a href="javascript:void(0);">${i }</a></li>
+    <c:forEach begin="1" end="${pageInfo.pageNums}" step="1" var="i">
+    	 <c:if test="${pageInfo.pageNum==i}">
+    		<li class="active"><a href="javascript:void(0);">${i}</a></li>
     	</c:if> 
-    	 <c:if test="${pageInfo.pageNum!=i }"> 
-    		<li><a href="javascript:void(0);" onclick="queryPage(${i})">${i }</a></li>
+    	 <c:if test="${pageInfo.pageNum!=i}">
+    		<li><a href="javascript:void(0);" onclick="queryPage(${i})">${i}</a></li>
     	</c:if> 
     	
     </c:forEach>
         
-     <c:if test="${pageInfo.pageNum==pageInfo.pageNums }">
+     <c:if test="${pageInfo.pageNum==pageInfo.pageNums || pageInfo.pageNums == 1}">
 	    <li class="disabled">
 	      <a href="javascript:void(0);" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
 	    </li>
     </c:if>
-    <c:if test="${pageInfo.pageNum!=pageInfo.pageNums }">
+    <c:if test="${pageInfo.pageNum!= pageInfo.pageNums}">
 	    <li>
 	      <a href="javascript:void(0);" onclick="queryPage(${pageInfo.pageNum+1})" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
 	    </li>

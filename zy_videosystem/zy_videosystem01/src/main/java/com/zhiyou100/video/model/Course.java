@@ -14,19 +14,27 @@ public class Course implements Serializable {
     private Timestamp insertTime;
     private Timestamp updateTime;
     private Integer subjectId;
-    private String  subjectName;
+    private Subject subject;
 
     public Course() {
     }
 
-    public Course(Integer id, String courseName, String courseDesc, Timestamp insertTime, Timestamp updateTime, Integer subjectId, String subjectName) {
+    public Course(Integer id, String courseName, String courseDesc, Timestamp insertTime, Timestamp updateTime, Integer subjectId, Subject subject) {
         this.id = id;
         this.courseName = courseName;
         this.courseDesc = courseDesc;
         this.insertTime = insertTime;
         this.updateTime = updateTime;
         this.subjectId = subjectId;
-        this.subjectName = subjectName;
+        this.subject = subject;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
     public Integer getId() {
@@ -77,14 +85,6 @@ public class Course implements Serializable {
         this.subjectId = subjectId;
     }
 
-    public String getSubjectName() {
-        return subjectName;
-    }
-
-    public void setSubjectName(String subjectName) {
-        this.subjectName = subjectName;
-    }
-
     @Override
     public String toString() {
         return "Course{" +
@@ -94,7 +94,6 @@ public class Course implements Serializable {
                 ", insertTime=" + insertTime +
                 ", updateTime=" + updateTime +
                 ", subjectId=" + subjectId +
-                ", subjectName='" + subjectName + '\'' +
                 '}';
     }
 }

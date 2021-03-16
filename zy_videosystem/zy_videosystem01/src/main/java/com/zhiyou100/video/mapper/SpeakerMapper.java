@@ -10,7 +10,6 @@ import java.util.List;
 @Repository
 public interface SpeakerMapper {
     List<Speaker> queryAllSpeakers();
-    List<Speaker> querySpeakers(@Param("speakerName") String speakerName,@Param("speakerJob") String speakerJob);
     Speaker querySpeakerById(Integer id);
     void deleteSpeakerById(Integer id);
     void updateSpeaker(Speaker speaker);

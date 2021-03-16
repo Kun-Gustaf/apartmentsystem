@@ -11,7 +11,10 @@
         <result property="insertTime" column="insert_time"/>
         <result property="updateTime" column="update_time"/>
         <result property="subjectId" column="subject_id"/>
-        <result property="subjectName" column="subject_name"/>
+        <association property="subject" javaType="subject">
+            <id property="id" column="id"/>
+            <result property="subjectName" column="subject_name"/>
+        </association>
     </resultMap>
     <insert id="addCourse">
         insert into course(course_name,course_desc,insert_time,update_time,subject_id) values (#{courseName},#{courseDesc},#{insertTime},#{updateTime},#{subjectId})
@@ -25,7 +28,7 @@
     </delete>
 
     <select id="queryAllCourses" resultMap="courseMap">
-        select * from course,subject where course.subject_id = subject.id
+        select * from course,`subject` where course.subject_id = `subject`.id
     </select>
     <select id="queryCourseById" resultMap="courseMap">
         select * from course,`subject` where course.subject_id = `subject` .id and course.id = #{id}

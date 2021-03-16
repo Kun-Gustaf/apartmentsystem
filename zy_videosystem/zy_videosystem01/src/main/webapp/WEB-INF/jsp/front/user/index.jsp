@@ -25,11 +25,11 @@
             <h2>我的资料</h2>
             <div id="profile_tab">
                 <ul class="profile_tab_header f_left clearfix">
-                    <li><a href="front/user/profile.do">更改资料</a></li>
+                    <li><a href="front/user/profile.action">更改资料</a></li>
                     <li class="profile_tab_line">|</li>
-                    <li><a href="front/user/avatar.do">更改头像</a></li>
+                    <li><a href="front/user/avatar.action">更改头像</a></li>
                     <li class="profile_tab_line">|</li>
-                    <li><a href="front/user/password.do">密码安全</a></li>
+                    <li><a href="front/user/password.action">密码安全</a></li>
                 </ul>
                 <div class="proflle_tab_body">
                     

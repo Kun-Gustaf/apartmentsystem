@@ -30,15 +30,13 @@ $(function(){
 			var password = $('#loginPassword').val(); */
 			console.log($('#loginForm').serialize());
 			//使用ajax的post方法提交登录信息
-			$.post('/front/user/login.action',$('#loginForm').serialize(),function(result){
-				console.log(result);
-				if(result.success){
-					//登录成功,刷新页面
-					location.reload();
-				}else{
-					alert(result.message);
-				}
-
+			$.post('/front/user/login.action',$('#loginForm').serialize(),function(data){
+			    if(data.code === 200){
+			        alert("登陆成功")
+                }else {
+			        alert(data.msg);
+                }
+                refresh()
 			},'json');
 			
 		},
@@ -57,8 +55,11 @@ $(function(){
 			email:"登录名称必须是已注册邮箱",
 			password:'密码是必须填写的，3-30个字符'
 		}
-	});	
-	
+	});
+    function refresh() {
+       /* location.href = "${pageContext.request.contextPath}/front/index.action";*/
+        location.reload();
+    }
 	
 	//注册请求的处理
 	$('#regForm').validate({

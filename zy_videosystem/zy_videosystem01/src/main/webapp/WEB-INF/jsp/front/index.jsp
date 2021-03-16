@@ -16,7 +16,7 @@
 </head>
 
 <body class="w100">
-    <jsp:include page="include/header.jsp"></jsp:include>
+    <jsp:include page="include/header.jsp" />
 
     <!--banner图-->
     <div class="banner index-banner"></div>
@@ -39,7 +39,7 @@
                         </td>
                         <td>
                             <!--上线时修改id-->
-                            <a href="front/course/index.do?subjectId=6">
+                            <a href="front/course/index.action?subjectId=6">
                                 <img src="static/img/ui.jpg" alt="" class="image scale" draggable="false">
                                 <div class="headline">
                                     <span>UI设计教程</span>
@@ -68,7 +68,7 @@
                             </a>
                         </td>
                         <td colspan="2">
-                            <a href="front/course/index.do?subjectId=10">
+                            <a href="front/course/index.action?subjectId=10">
                                 <img src="static/img/python.jpg" alt="" class="image scale" draggable="false">
                                 <div class="headline">
                                     <span>Python教程</span>
@@ -79,7 +79,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <a href="front/course/index.do?subjectId=11">
+                            <a href="front/course/index.action?subjectId=11">
                                 <img src="static/img/php.jpg" alt="" class="image scale" draggable="false">
                                 <div class="headline">
                                     <span>PHP教程</span>
@@ -95,7 +95,6 @@
                         </td>
                     </tr>
                 </table>
-                <!--马上试听-->
                 <a onclick="pyRegisterCvt()" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2580094677&site=qq&menu=yes">
                     <div class="audition">高级课程</div>
                 </a>
@@ -129,8 +128,6 @@
     <%@include file="include/footer.jsp"%>
 
     <%@include file="include/script.html"%>
-
-    
     
 </body>
 

@@ -1,6 +1,7 @@
 package com.zhiyou100.video.service.impl;
 
 import com.zhiyou100.video.mapper.UserMapper;
+import com.zhiyou100.video.model.ResultObject;
 import com.zhiyou100.video.model.User;
 import com.zhiyou100.video.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserByEmailAndPwd(String email, String password) {
-        return userMapper.queryUserByEmailAndPwd(email, password);
+    public ResultObject getUserByEmailAndPwd(String email, String password) {
+        User user = userMapper.queryUserByEmailAndPwd(email, password);
+        if(user == null){
+            return new ResultObject(201,"您的用户名和密码不匹配",null);
+        }
+        return new ResultObject(200,"helloWorld",user);
+
     }
 }

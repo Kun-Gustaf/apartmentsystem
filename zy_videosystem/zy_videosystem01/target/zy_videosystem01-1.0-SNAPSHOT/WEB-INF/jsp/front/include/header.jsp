@@ -7,13 +7,13 @@
 		<span>欢迎来到IT培训的黄埔军校——智游教育！</span>
 
 
-		<c:if test="${not empty front_user}">
+		<c:if test="${not empty user}">
 			<div id="userBlock" style="float:right">
 				<a href="front/user/logout.action">退出</a>
-                <a href="front/user/index.do" id="account">${front_user.user_email }</a>
+                <a href="front/user/index.action" id="account">${user.email }</a>
 			</div>
 		</c:if>
-		<c:if test="${empty _front_user}">
+		<c:if test="${empty user}">
 			<div id="regBlock" style="float:right">
 				<a href="javascript:" id="reg_open"><img src="static/img/we.png">注册</a>
 				<a href="javascript:" id="login_open"><img src="static/img/we.png">登录</a>

@@ -20,12 +20,9 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @Autowired
-    private CourseService courseService;
-
     @RequestMapping("/toLogin.action")
     public ModelAndView toAdminLogin(HttpServletRequest req){
-        req.getSession().setAttribute("BaseContext", req.getContextPath()+"/");
+//        req.getSession().setAttribute("BaseContext", req.getContextPath()+"/");
         ModelAndView mav = new ModelAndView();
         mav.setViewName("/admin/login");
         return mav;
@@ -36,16 +33,14 @@ public class AdminController {
 
         Object admin1 = session.getAttribute("session_admin");
         System.out.println(admin1);
-        if(admin1 == null){
+        if(admin1 != null){
             return "forward:/admin/speaker/index.action";
         }
         Admin admin = adminService.getAdminByNameAndPwd(loginName, loginPwd);
-
         if(admin !=null){
-            List<Course> courses = courseService.getAllCourse();
             session.setAttribute("session_admin",admin);
             System.out.println(admin);
-            return  "forward:/admin/course/index.action";
+            return  "forward:/admin/speaker/index.action";
         }else {
             req.setAttribute("message","你的用户名或密码错误！");
             return  "/admin/login";

@@ -24,7 +24,8 @@ public class ContextFilter implements Filter {
         int port = req.getServerPort();
         //获取虚拟目录
         String contextPath = req.getContextPath();
-        String basePath = http + " ://" + localhost + ":" + port + "/" + contextPath + "/";
+        /*http + " ://" + localhost + ":" + port + "/" + contextPath + "/"*/
+        String basePath =req.getContextPath()+"/";
         req.setAttribute("BaseContext",basePath);
         //资源放行
         chain.doFilter(req, resp);

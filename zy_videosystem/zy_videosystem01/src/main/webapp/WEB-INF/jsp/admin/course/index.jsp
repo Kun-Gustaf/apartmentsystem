@@ -39,7 +39,7 @@
  				<tr>
  					<td>${i.index+1}</td>
  					<td>${co.courseName}</td>
- 					<td>${co.subjectName}</td>
+ 					<td>${co.subject.subjectName}</td>
  					<td>${co.courseDesc}</td>
  					<td><a href="${pageContext.request.contextPath}/admin/course/edit.action?id=${co.id }"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
  					<td><a href="${pageContext.request.contextPath}/admin/course/delete.action?id=${co.id }"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>

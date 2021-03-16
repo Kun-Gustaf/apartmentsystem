@@ -21,20 +21,8 @@
     <delete id="deleteSpeakerById">
         delete from speaker where id = #{id}
     </delete>
-  <!--  <select id="queryAllSpeakers" resultMap="speakerMap">
-        select * from speaker
-    </select>-->
     <select id="querySpeakerById" resultMap="speakerMap">
         select * from speaker where id = #{id}
-    </select>
-    <select id="querySpeakers" resultMap="speakerMap">
-        select * from speaker where 1 = 1
-        <if test="speakerName != '' and speakerName != null">
-          and  speaker_name = '%' #{speakerName} '%'
-        </if>
-         <if test="speakerJob != '' and speakerJob != null">
-            and speakerJob =  #{speakerJob}
-          </if>
     </select>
     <!--查询总条数-->
     <select id="querySpeakerTotal" resultType="java.lang.Integer">
@@ -48,13 +36,17 @@
                     concat_ws(分隔符,str1,str2,str3,...)
                 */
             </if>
-        </where>
-        <where>
             <if test="queryJob != '' and queryJob != null">
-               speaker_job like concat("%",#{queryJob},"%")
+                and  speaker_job like concat("%",#{queryJob},"%")
             </if>
         </where>
     </select>
+
+    <select id="queryAllSpeakers" resultType="Speaker">
+        select * from speaker
+    </select>
+
+
     <!--查询总计录值-->
     <select id="queryAllSpeaker" parameterType="java.util.HashMap"  resultMap="speakerMap">
         select * from speaker
@@ -62,10 +54,8 @@
             <if test="queryName != '' and queryName != null">
                 speaker_name like concat("%",#{queryName},"%")
             </if>
-        </where>
-        <where>
             <if test="queryJob != '' and queryJob != null">
-                speaker_job like concat("%",#{queryJob},"%")
+                and  speaker_job like concat("%",#{queryJob},"%")
             </if>
         </where>
         /*分页操作需要跳出where标签*/
