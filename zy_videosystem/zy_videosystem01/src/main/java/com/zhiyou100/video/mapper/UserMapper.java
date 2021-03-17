@@ -12,5 +12,7 @@ public interface UserMapper {
     User queryUserByEmailAndPwd(@Param("email") String email,@Param("password") String password);
     void addUser(User user);
     void updateUser(User user);
+    void resetPwd(User user);
+    void updateAvatar(User user);
     void deleteUserById(Integer id);
 }

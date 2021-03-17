@@ -23,7 +23,7 @@
     </header>
     <main>
         <div class="container">
-            <form class="ma" action="resetpwd.do" method="post">
+            <form class="ma" action="resetpwd.action" method="post">
                <input type="hidden" name="email" value="${email}"/>
                 <input type="hidden" name="captcha" value="${captcha}"/>
                 <div class="form_header">

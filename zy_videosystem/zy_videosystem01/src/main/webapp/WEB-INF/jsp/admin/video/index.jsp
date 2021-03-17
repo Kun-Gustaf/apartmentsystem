@@ -91,11 +91,22 @@
  			</tbody>
 		</table>
 	</form>
+       <%-- <jsp:include page="../page.jsp"/>--%>
 	</div>
 
+   <%-- <form id="pageForm" action="${pageContext.request.contextPath}/admin/speaker/index.action" method="post">
+        <input type="hidden" name="queryName" value="${queryName}">
+        <input type="hidden" name="queryJob" value="${queryJob}">
+        <input type="hidden" name="pageNum" value="${pageInfo.pageNum}" id="queryPage">
+    </form>--%>
 <script src="static/js/jquery-1.12.4.min.js"></script>
 <script src="static/js/jquery-confirm.min.js"></script>
 <script>
+  /*  //翻页提交
+    function queryPage(page){
+        $('#queryPage').val(page);
+        $('#pageForm').submit();
+    }*/
 	//全选
 	function checkAll(){
 		var ca = document.getElementById('checkAll');

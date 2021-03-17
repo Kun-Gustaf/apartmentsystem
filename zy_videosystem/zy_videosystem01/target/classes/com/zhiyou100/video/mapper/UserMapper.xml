@@ -21,24 +21,29 @@
 
 
     <insert id="addUser" parameterType="user">
-        insert  into user(nick_name,sex,birthday,email,province,city,head_url,password,insert_time,update_time,captcha)
-        values(#{id},#{nickName},#{sex},#{birthday},#{email},#{province},#{city},#{headUrl},#{password},#{insertTime},#{updateTime},#{captcha})
+        insert into user(email,password,insert_time) values(#{email},#{password},#{insertTime})
     </insert>
-    <update id="updateUser" >
-
+    <update id="updateUser" parameterType="user" >
+        update user set nick_name = #{nickName},sex = #{sex},birthday = #{birthday}, email = #{email}, province = #{province} ,city = #{city},update_time = #{updateTime} where id = #{id}
+    </update>
+    <update id="resetPwd" parameterType="user">
+         update `user` set password = #{password},update_time = #{updateTime} where id = #{id}
+    </update>
+    <update id="updateAvatar" parameterType="user">
+        update `user` set head_url = #{headUrl},update_time = #{updateTime} where id = #{id}
     </update>
     <delete id="deleteUserById" parameterType="Integer">
-        delete form user where id = #{id}
+        delete form`user`where id = #{id}
     </delete>
 
     <select id="queryAllUsers" resultMap="userMap">
-        select * from user
+        select * from `user`
     </select>
     <select id="queryUserById" parameterType="Integer" resultType="com.zhiyou100.video.model.User">
-        select * from user where id = #{id}
+        select * from `user` where id = #{id}
     </select>
     <select id="queryUserByEmailAndPwd" resultMap="userMap">
-        select * from user where email = #{email} and password = #{password}
+        select * from `user` where email = #{email} and password = #{password}
     </select>
 
 </mapper>

@@ -9,6 +9,7 @@ import com.zhiyou100.video.service.CourseService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
 import java.util.List;
 
 public class CourseServiceTest {
@@ -48,6 +49,11 @@ public class CourseServiceTest {
 
     }
 
+    @Test
+    public void testTime(){
+        Date date = new Date();
+        System.out.println(date.getTime());
+    }
 
 
 

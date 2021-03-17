@@ -22,7 +22,7 @@
 <div class="container">
     <div class="col-lg-4 col-lg-offset-4 login_form">
         <div class="row"><img src="static/img/logo.png"></div>
-        <form class="form-horizontal" action="admin/login.action" method="post" id="loginForm">
+        <form class="form-horizontal" action="${pageContext.request.contextPath}/admin/login.action" method="post" id="loginForm">
             <div class="form-group has-success">
                 <div class="col-sm-10">
                     <input type="text" class="form-control  input-lg" name="loginName" id="loginName" placeholder="用户名">

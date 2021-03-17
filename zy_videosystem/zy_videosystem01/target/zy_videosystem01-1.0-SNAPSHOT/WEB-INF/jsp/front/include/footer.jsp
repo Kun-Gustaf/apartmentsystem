@@ -63,15 +63,11 @@
 			<img src="static/img/logo.png" alt="" class="ma">
 		</div>
 		<div class="mask_content_body">
-			<form id="regForm" action="front/user/regist.do" method="post">
+			<form id="regForm" action="${pageContext.request.contextPath}/front/user/register.action" method="post">
 				<h3>新用户注册</h3>
 				<input type="email" id="regEmail" placeholder="请输入邮箱" name="email">
 				<input type="password" id="regPsw" placeholder="请输入密码" name="password">
 				<input type="password" id="regPswAgain" placeholder="请再次输入密码" name="pswAgain">
-				<!-- <div id="yzm" class="form-inline">
-					<input type="text" name="yzm" style="width: 45%; display: inline-block;">
-					<div id="v_container" style="width: 45%;height: 40px;float:right;"></div>
-				</div> -->
 				<input type="submit" value="注&#x3000;册">
 			</form>
 		</div>

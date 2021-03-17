@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 public class User implements Serializable {
     private Integer id;
     private String nickName;
-    private String sex;
+    private Integer sex;
     private Timestamp birthday;
     private String email;
     private String province;
@@ -23,7 +23,7 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(Integer id, String nickName, String sex, Timestamp birthday, String email, String province, String city, String headUrl, String password, Timestamp insertTime, Timestamp updateTime, String captcha) {
+    public User(Integer id, String nickName, Integer sex, Timestamp birthday, String email, String province, String city, String headUrl, String password, Timestamp insertTime, Timestamp updateTime, String captcha) {
         this.id = id;
         this.nickName = nickName;
         this.sex = sex;
@@ -54,11 +54,11 @@ public class User implements Serializable {
         this.nickName = nickName;
     }
 
-    public String getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 

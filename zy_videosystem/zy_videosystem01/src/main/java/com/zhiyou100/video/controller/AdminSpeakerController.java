@@ -23,16 +23,8 @@ public class AdminSpeakerController extends AdminBaseController{
         模糊查询 + 分页查询 绑定在一起
      */
     @RequestMapping( "/index.action")
-    public String queryAllSpeaker(String queryName, String queryJob, Integer pageNum, Model model){
-        //分页对象需要的数据
-        //queryName
-        //queryJob
-        //pageNum
-        //pageSize
-        //组装分页对象需要的数据
-        //allNum
-        //results 总计录值
-        //输入映射 有一种类型 map
+    public String queryAllSpeaker(HttpServletRequest req, String queryName, String queryJob, Integer pageNum, Model model){
+
         HashMap<Object, Object> map = new HashMap<>();
         map.put("queryName",queryName);
         map.put("queryJob",queryJob);
@@ -43,8 +35,6 @@ public class AdminSpeakerController extends AdminBaseController{
         map.put("pageNum",pageNum);
         map.put("pageSize",DEFAULT_PAGE_SIZE);
         PageModel<Speaker> pageModel = speakerService.querySpeakerList(map);
-      /*  pageModel.setPageNums(pageModel.getAllNum()/pageModel.getPageSize() + 1);*/
-        System.out.println(pageModel);
         //进行数据的回传
         model.addAttribute("pageInfo",pageModel);
         model.addAttribute("queryName",queryName);

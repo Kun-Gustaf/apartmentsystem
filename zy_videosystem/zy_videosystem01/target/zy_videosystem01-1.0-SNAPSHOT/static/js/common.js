@@ -58,7 +58,10 @@ $(function(){
 	});
     function refresh() {
        /* location.href = "${pageContext.request.contextPath}/front/index.action";*/
+        location.href = "/index.action";
+/*
         location.reload();
+*/
     }
 	
 	//注册请求的处理
@@ -67,13 +70,13 @@ $(function(){
 			//ajax提交注册信息，并且返回注册结果
 			console.log($('#regForm').serialize());
 			//使用ajax的post方法提交注册信息
-			$.post('front/user/regist.action',$('#regForm').serialize(),function(result){
+			$.post('/front/user/register.action',$('#regForm').serialize(),function(result){
 				console.log(result);
-				if(result.success){
+				if(result.code === 200){
 					//注册成功,刷新页面
-					location.reload();
+                    refresh()
 				}else{
-					alert(result.message);
+					alert(result.msg);
 				}
 			},'json');
 			

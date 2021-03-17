@@ -31,7 +31,7 @@
                 <li><a href="admin/logout.action" title="点击退出登录">${sessionScope.session_admin.loginName }<i
                         class="glyphicon glyphicon-log-out" aria-hidden="true"></i></a></li>
             </ul>
-        </div><!--/.nav-collapse -->
+        </div>
     </div>
 </nav>
     

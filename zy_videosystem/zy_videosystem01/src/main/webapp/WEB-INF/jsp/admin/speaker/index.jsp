@@ -47,7 +47,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:if test="${not empty pageInfo }">
+        <c:if test="${not empty pageInfo.results }">
             <c:forEach items="${pageInfo.results}" var="sp" varStatus="i">
                 <tr>
                     <td>${i.index+1 }</td>
@@ -59,7 +59,7 @@
                 </tr>
             </c:forEach>
         </c:if>
-        <c:if test="${empty pageInfo }">
+        <c:if test="${empty pageInfo.results }">
             <tr><td>当前查询结果为空!</td></tr>
         </c:if>
         </tbody>

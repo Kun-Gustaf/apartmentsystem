@@ -19,28 +19,27 @@
 </head>
 
 <body>
-   <jsp:include page="uheader.jsp"></jsp:include>
+   <jsp:include page="uheader.jsp"/>
     <main>
         <div class="container">
             <h2>我的资料</h2>
             <div id="profile_tab">
                 <ul class="profile_tab_header f_left clearfix">
-                    <li><a href="front/user/profile.action">更改资料</a></li>
+                    <li><a href="${pageContext.request.contextPath}/front/user/profile.action">更改资料</a></li>
                     <li class="profile_tab_line">|</li>
-                    <li><a href="front/user/avatar.action">更改头像</a></li>
+                    <li><a href="${pageContext.request.contextPath}/front/user/avatar.action">更改头像</a></li>
                     <li class="profile_tab_line">|</li>
-                    <li><a href="front/user/password.action">密码安全</a></li>
+                    <li><a href="${pageContext.request.contextPath}/front/user/password.action">密码安全</a></li>
                 </ul>
                 <div class="proflle_tab_body">
                     
                     <div class="proflle_tab_workplace clearfix">
                         <div class="profile_avatar_area">
                             <c:if test="${empty user.headUrl}">
-		                         <img id="avatar" src="static/img/avatar_lg.png" alt="">
+		                         <img id="avatar" src="static/img/avatar_lg.png" alt="图片无法加载">
 		                      </c:if>
-		                      
 		                      <c:if test="${not empty user.headUrl}">
-		                         <img id="avatar" width="200px" heigth="200px" src="${user.headUrl}" alt="">
+		                         <img id="avatar" width="200px" height="200px" src="${user.headUrl}" alt="图片无法加载">
 		                      </c:if>
                             <p>
                             <c:if test="${not empty user.nickName}">
@@ -49,7 +48,7 @@
 						    <c:if test="${empty user.nickName}">
 						          <span>${user.email }</span>
 						    </c:if> 
-                                                                          欢迎回来！</p>
+                               欢迎回来！</p>
                         </div>
                         <ul class="profile_ifo_area">
                             <li><span class="dd">昵&#x3000;称：</span>${user.nickName}</li>
@@ -61,10 +60,9 @@
                                     		男
                                 </c:if> 
                              </li>
-                            <li><span class="dd">生&#x3000;日：</span><fmt:formatDate value="${user.birthday}" pattern="YYYY-MM-dd"></fmt:formatDate></li>
+                            <li><span class="dd">生&#x3000;日：</span><fmt:formatDate value="${user.birthday}" pattern="YYYY-MM-dd"/></li>
                             <li><span class="dd">邮&#x3000;箱：</span>${user.email}</li>
-                            <li><span class="dd">所在地：</span>${user.province}-${user.city }</li>
-                            
+                            <li><span class="dd">所在地：</span>${user.province}-${user.city}</li>
                         </ul>
                     </div>
                 </div>

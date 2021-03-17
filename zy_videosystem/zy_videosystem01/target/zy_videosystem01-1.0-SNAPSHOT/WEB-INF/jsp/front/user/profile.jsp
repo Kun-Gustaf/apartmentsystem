@@ -17,17 +17,17 @@
 </head>
 
 <body class="w100">
-    <jsp:include page="uheader.jsp"></jsp:include>
+    <jsp:include page="uheader.jsp"/>
     <main>
         <div class="container">
             <h2>我的资料</h2>
             <div id="profile_tab">
                 <ul class="profile_tab_header f_left clearfix">
-                    <li><a href="front/user/profile.do">更改资料</a></li>
+                    <li><a href="${pageContext.request.contextPath}/front/user/profile.action">更改资料</a></li>
                     <li class="profile_tab_line">|</li>
-                    <li><a href="front/user/avatar.do">更改头像</a></li>
+                    <li><a href="${pageContext.request.contextPath}/front/user/avatar.action">更改头像</a></li>
                     <li class="profile_tab_line">|</li>
-                    <li><a href="front/user/password.do">密码安全</a></li>
+                    <li><a href="${pageContext.request.contextPath}/front/user/password.action">密码安全</a></li>
                 </ul>
                 <div class="proflle_tab_body">
                     <div class="proflle_tab_workplace clearfix">
@@ -41,7 +41,7 @@
                             </c:if>
                         </div>
                         <div class="profile_ifo_area">
-                            <form action="front/user/profile.do" method="post">
+                            <form action="${pageContext.request.contextPath}/front/user/toProfile.action?id= ${user.id} " method="post">
                                 <div class="form_group">
                                     <span class="dd">昵&#x3000;称：</span><input type="text" name="nickName" value="${user.nickName}" >
                                 </div>
@@ -52,24 +52,20 @@
                                 </div>
                                 <div class="form_group">
                                     <span class="dd">生&#x3000;日：</span>
-                                    <input type="date"  name="birthdayStr" value="${user.birthdayStr}">
+                                    <input type="text"  name="birthday" value="${user.birthday}">
                                 </div>
                                 <div class="form_group">
                                     <span class="dd">邮&#x3000;箱：</span>
-                                    <span >${user.email}</span>
+                                    <input type="text"  name="email" value="${user.email}" readonly/>
                                 </div>
                                 <div class="form_group">
                                     <span class="dd">所在地：</span>
-                                    <input type="hidden" id="uprovince" value="${user.province }">
-                                    <input type="hidden" id="ucity" value="${user.city }">
-                                    <div id="city">
-                                        <select class="prov" name="province"></select>
-                                        <select class="city" name="city"></select>
-                                    </div>
+                                    <input type="text" id="province" name="province" value="${user.province}">
+                                    <input type="text" id="city" name="city" value="${user.city }">
                                 </div>
                                 <div class="form_submit dd">
                                     <input type="submit"  value="保&#x3000;存">
-                                    <a href="front/user/profile.do">重置</a>
+                                    <a href="${pageContext.request.contextPath}/front/user/profile.action">重置</a>
                                 </div>
                             </form>
                         </div>
@@ -78,13 +74,12 @@
             </div>
         </div>
     </main>
-    <jsp:include page="ufooter.jsp"></jsp:include>
+    <jsp:include page="ufooter.jsp"/>
     <%@include file="../include/script.html"%>
-    <script src="static/js/jquery.cityselect.min.js"></script>
+    <script src="static/js/jquery.cityselect.min.js"/>
     <script type="text/javascript">
 
 		$(function(){
-
 			var province = $('#uprovince').val();
 			var city = $('#ucity').val();
 
@@ -103,7 +98,6 @@
 					nodata: "none"
 				});
 			}
-
 		});
 
     </script>

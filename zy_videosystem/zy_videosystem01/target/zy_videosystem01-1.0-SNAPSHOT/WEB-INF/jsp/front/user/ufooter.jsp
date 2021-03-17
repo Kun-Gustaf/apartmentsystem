@@ -1,11 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: zhouyc
-  Date: 2017/6/30
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-
 <footer>
 	<div class="container">
 		<ul>

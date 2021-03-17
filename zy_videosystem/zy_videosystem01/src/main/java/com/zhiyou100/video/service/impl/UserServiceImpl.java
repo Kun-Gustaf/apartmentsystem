@@ -7,6 +7,7 @@ import com.zhiyou100.video.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
@@ -31,6 +32,35 @@ public class UserServiceImpl implements UserService {
             return new ResultObject(201,"您的用户名和密码不匹配",null);
         }
         return new ResultObject(200,"helloWorld",user);
+    }
 
+    @Override
+    public void updateUser(User user) {
+        userMapper.updateUser(user);
+    }
+
+    @Override
+    public void resetPwd(User user) {
+        userMapper.resetPwd(user);
+    }
+
+    @Override
+    public void updateAvatar(User user) {
+        userMapper.updateAvatar(user);
+    }
+
+    @Override
+    public ResultObject regitserUser(User user) {
+        ResultObject resultObject = null;
+        try{
+            user.setInsertTime(new Timestamp(System.currentTimeMillis()));
+            userMapper.addUser(user);
+            resultObject = new ResultObject(200,"注册成功",user);
+        }catch(Exception e){
+            e.printStackTrace();
+            resultObject = new ResultObject(201,"注册失败",null);
+        }
+        System.out.println(resultObject+"=============================");
+        return resultObject;
     }
 }

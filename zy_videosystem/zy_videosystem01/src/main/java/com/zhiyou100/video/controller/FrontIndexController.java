@@ -23,11 +23,8 @@ public class FrontIndexController {
     private UserService userService;
 
     @RequestMapping("/index.action")
-    public ModelAndView getIndex() {
-        ModelAndView mav = new ModelAndView();
-        System.out.println(mav);
-        mav.setViewName("/front/index");
-        return mav;
+    public String getIndex() {
+        return "/front/index";
     }
 
     @RequestMapping(value = "/front/user/login.action",method = RequestMethod.POST)
@@ -44,12 +41,7 @@ public class FrontIndexController {
 
     @RequestMapping("/front/user/logout.action")
     public String logout(HttpServletRequest req) {
-        req.removeAttribute("user");
+        req.getSession().removeAttribute("user");
         return "/front/index";
-    }
-
-    @RequestMapping("front/user/index.action")
-    public String index(HttpServletRequest req) {
-        return "front/user/index";
     }
 }

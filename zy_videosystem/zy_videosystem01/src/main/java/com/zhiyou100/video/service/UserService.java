@@ -10,4 +10,12 @@ public interface UserService {
 
     User getUserById(Integer id);
     ResultObject getUserByEmailAndPwd(String email, String password);
+
+    void updateUser(User user);
+
+    void resetPwd(User user);
+
+    void updateAvatar(User user);
+
+    ResultObject regitserUser(User user);
 }

@@ -23,11 +23,11 @@
             <h2>我的资料</h2>
             <div id="profile_tab">
                 <ul class="profile_tab_header f_left clearfix">
-                    <li><a href="front/user/profile.do">更改资料</a></li>
+                    <li><a href="${pageContext.request.contextPath}/front/user/profile.action">更改资料</a></li>
                     <li class="profile_tab_line">|</li>
-                    <li><a href="front/user/avatar.do">更改头像</a></li>
+                    <li><a href="${pageContext.request.contextPath}/front/user/avatar.action">更改头像</a></li>
                     <li class="profile_tab_line">|</li>
-                    <li><a href="front/user/password.do">密码安全</a></li>
+                    <li><a href="${pageContext.request.contextPath}/front/user/password.action">密码安全</a></li>
                 </ul>
                 <div class="proflle_tab_body">
                     <div class="proflle_tab_workplace clearfix">
@@ -50,7 +50,7 @@
 				                <strong>${message}</strong>
 				            </div>
 				            </c:if>
-                            <form action="front/user/password.do" method="post">
+                            <form action="${pageContext.request.contextPath}/front/user/resetPwd.action?id=${user.id}" method="post">
                                 <div class="form_group">
                                     <span class="dd">旧&#x3000;密&#x3000;码：</span>
                                     <input type="password" id="oldPassword" name="oldPassword">
@@ -73,7 +73,7 @@
             </div>
         </div>
     </main>
-    <jsp:include page="ufooter.jsp"></jsp:include>
+    <jsp:include page="ufooter.jsp"/>
     <%@include file="../include/script.html"%>
    <script type="text/javascript">
 
