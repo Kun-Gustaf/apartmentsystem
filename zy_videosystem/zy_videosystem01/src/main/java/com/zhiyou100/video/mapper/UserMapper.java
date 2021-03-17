@@ -15,4 +15,9 @@ public interface UserMapper {
     void resetPwd(User user);
     void updateAvatar(User user);
     void deleteUserById(Integer id);
+    User queryUserByIdAndPassword(User user);
+
+    void updateUserByEmail(User user);
+
+    User checkEmail(String email);
 }

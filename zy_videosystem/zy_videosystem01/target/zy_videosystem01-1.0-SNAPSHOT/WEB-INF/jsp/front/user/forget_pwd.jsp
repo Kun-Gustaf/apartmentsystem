@@ -24,19 +24,21 @@
     </header>
     <main>
         <div class="container">
-            <form class="ma" action="forgetpwd.do" method="post" >
+            <form class="ma" action="${pageContext.request.contextPath}/front/user/forgetAndResetPwd.action" method="post" >
                 <div class="form_header">
                     <div class="form_title">
                         <h2>忘记密码</h2>
                         <span>通过注册邮箱重设密码</span>
                     </div>
                     <div class="form_back">
-                        <a href="index.do">返回立即登录</a>
+                        <a href="${pageContext.request.contextPath}/index.action">返回立即登录</a>
                     </div>
                 </div>
                 <div class="form_body">
-                    <input type="email" placeholder="请输入登录邮箱" name="email" id="email">
-                    <input type="text" placeholder="请输入验证码" name="captcha"><input type="button" value="发邮件获取验证码" onclick="submitEmail();">
+                    <input type="email" placeholder="请输入登录邮箱" name="email" id="email" onblur="checkEmail()">
+                    <input type="text" placeholder="请输入验证码" name="captcha">
+                    <input type="text" id="captchaCode" name="captchaCode" hidden>
+                    <input type="button" value="发邮件获取验证码" onclick="submitEmail();">
                     <input type="submit" value="提交">
                 </div>
                 <div class="form_footer">
@@ -46,21 +48,32 @@
                 </div>
             </form>
         </div>
-        
     </main>
 <%@include file="../include/script.html"%>
     <script type="text/javascript">
+        function checkEmail() {
+            $.post('/front/user/checkEmail.action',{email:email},function (result) {
+                    if(result.code !== 200){
+                        alert("该邮箱未被注册");
+                    }
+                }
+                ,'json'
+            );
+
+        }
+
 		function submitEmail(){
 			var email = $('#email').val();
 			//改为ajax提交邮箱
-			if(email!=null&&email!=''){
-				$.post('sendemail.do',{email:email},function(data){
-					console.log(data);
-					if(data.success){
-						alert('验证码已发送到邮箱，请注意查收');
+			if(email!=null&&email!==''){
+				$.post('/front/user/sendEmail.action',{email:email},function(result){
+					console.log(result);
+					if(result.code === 200){
+						alert(result.msg);
 					}else{
-						alert('验证码发送失败：'+data.message);
+						alert(result.msg);
 					}
+                    $("#captchaCode").val(result.msg)
 				},'json');
 			}
 		}

@@ -36,10 +36,10 @@
                     <div class="proflle_tab_workplace clearfix">
                         <div class="profile_avatar_area">
                             <c:if test="${empty user.headUrl}">
-		                         <img id="avatar" src="static/img/avatar_lg.png" alt="图片无法加载">
+		                         <img id="avatar" src="${pageContext.request.contextPath}/static/img/avatar_lg.png" alt="图片无法加载">
 		                      </c:if>
 		                      <c:if test="${not empty user.headUrl}">
-		                         <img id="avatar" width="200px" height="200px" src="${user.headUrl}" alt="图片无法加载">
+		                         <img id="avatar" width="200px" height="200px" src="${pageContext.request.contextPath}/static/img/${user.headUrl}" alt="无法加载">
 		                      </c:if>
                             <p>
                             <c:if test="${not empty user.nickName}">

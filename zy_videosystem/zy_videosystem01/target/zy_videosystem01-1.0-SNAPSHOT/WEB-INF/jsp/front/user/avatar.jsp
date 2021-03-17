@@ -46,7 +46,7 @@
                             <form id="upload_form" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/front/user/resetAvatar.action?id= ${user.id}" >
                                 <p>请选择图像文件</p>
                                 <div>
-                                <input type="file" class="form-control" name="headUrl" id="image_file" accept="image/png,image/jpeg,image/jpg"/>
+                                <input type="file" class="form-control" name="headUrl" id="image_file" />
                                 <input class="btn btn-primary" type="submit" value="上传" />
                                 </div>
                             </form>

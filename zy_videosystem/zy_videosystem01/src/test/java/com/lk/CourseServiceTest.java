@@ -26,8 +26,6 @@ public class CourseServiceTest {
     @Autowired
     private AdminService adminService;
 
-
-
     @Test
     public void testGetAllCourses(){
         System.out.println(courseMapper);
@@ -45,8 +43,6 @@ public class CourseServiceTest {
             List<Admin> admins = adminService.getAllAdmins();
             admins.forEach((System.out::println));
         }
-
-
     }
 
     @Test

@@ -50,10 +50,10 @@
 				                <strong>${message}</strong>
 				            </div>
 				            </c:if>
-                            <form action="${pageContext.request.contextPath}/front/user/resetPwd.action?id=${user.id}" method="post">
+                            <form action="${pageContext.request.contextPath}/front/user/resetPwd.action?id=${user.id}" method="post" id="loginForm">
                                 <div class="form_group">
                                     <span class="dd">旧&#x3000;密&#x3000;码：</span>
-                                    <input type="password" id="oldPassword" name="oldPassword">
+                                    <input type="password" id="oldPassword" name="oldPassword" onblur="confirmPwd()"><span id="msg"></span>
                                 </div>
                                 <div class="form_group">
                                     <span class="dd">新&#x3000;密&#x3000;码：</span>
@@ -76,7 +76,11 @@
     <jsp:include page="ufooter.jsp"/>
     <%@include file="../include/script.html"%>
    <script type="text/javascript">
-
+        function confirmPwd() {
+            $.post('/front/user/confirmPwd.action',$('oldPassword').serialize(),function(data){
+                $("#msg").html(data.msg);
+            },'json');
+        }
    </script>
 </body>
 </html>

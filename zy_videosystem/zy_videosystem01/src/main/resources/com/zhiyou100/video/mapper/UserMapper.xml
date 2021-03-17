@@ -23,7 +23,7 @@
     <insert id="addUser" parameterType="user">
         insert into user(email,password,insert_time) values(#{email},#{password},#{insertTime})
     </insert>
-    <update id="updateUser" parameterType="user" >
+    <update id="updateUser" >
         update user set nick_name = #{nickName},sex = #{sex},birthday = #{birthday}, email = #{email}, province = #{province} ,city = #{city},update_time = #{updateTime} where id = #{id}
     </update>
     <update id="resetPwd" parameterType="user">
@@ -31,6 +31,9 @@
     </update>
     <update id="updateAvatar" parameterType="user">
         update `user` set head_url = #{headUrl},update_time = #{updateTime} where id = #{id}
+    </update>
+    <update id="updateUserByEmail">
+         update `user` set password = #{password},captcha = #{captcha} where email = #{email};
     </update>
     <delete id="deleteUserById" parameterType="Integer">
         delete form`user`where id = #{id}
@@ -45,5 +48,10 @@
     <select id="queryUserByEmailAndPwd" resultMap="userMap">
         select * from `user` where email = #{email} and password = #{password}
     </select>
-
+    <select id="queryUserByIdAndPassword" resultMap="userMap">
+        select * from `user` where id = #{id} and password = #{password};
+    </select>
+    <select id="checkEmail" resultMap="userMap" parameterType="String">
+        select * from  `user` where  email = #{email}
+    </select>
 </mapper>

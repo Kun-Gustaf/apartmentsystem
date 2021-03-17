@@ -43,7 +43,7 @@
 
 		<c:forEach items="${videoList}" var="video" >
 			<div class="chapter">
-				<p class="biaoti"><a href="front/video/index.do?videoId=${video.id}&subjectId=${subjectId}">${video.videoTitle}</a></p>
+				<p class="biaoti"><a href="front/video/index.action?videoId=${video.id}&subjectId=${subjectId}">${video.videoTitle}</a></p>
 				<p class="lecturer">${video.videoDescr}</p>
 				<p class="lecturer">讲师：${video.speakerName}</p>
 				<div class="v-info">

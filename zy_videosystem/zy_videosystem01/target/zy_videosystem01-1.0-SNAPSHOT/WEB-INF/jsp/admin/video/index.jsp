@@ -26,15 +26,15 @@
 		  批量删除 <span class="badge" id="countSpan">0</span>
 		</button>
 		<div style="float: right;">
-			<form class="form-inline" action="admin/video/fuzzyQuery.action" method="post">
+			<form class="form-inline" action="admin/video/index.action" method="post">
 			  <div class="form-group">
-			    <input type="text" class="form-control" name="videoTitle"  value="${query.queryName}" placeholder="视频标题">
+			    <input type="text" class="form-control" name="videoTitle"  value="${videoTitle}" placeholder="视频标题">
 			  </div>
 			   <div class="form-group">
 			    <select name="speakerId"  class="form-control">
 			    	<option value="0">请选择主讲人</option>
 			    	<c:forEach items="${speakers}" var="sp">
-			    		<option <c:if test="${query.speakerId==sp.id}">selected</c:if> value="${sp.id}">${sp.speakerName}</option>
+			    		<option <c:if test="${speakerId==sp.id}">selected</c:if> value="${sp.id}">${sp.speakerName}</option>
 			    	</c:forEach>
 			    </select>
 			  </div>
@@ -43,7 +43,7 @@
 			    <select name="courseId" class="form-control">
 			    	<option value="0">请选择课程</option>
 			    	<c:forEach items="${courses}" var="c">
-			    		<option  <c:if test="${query.courseId==c.id }">selected</c:if>  value="${c.id}">${c.courseName}</option>
+			    		<option  <c:if test="${courseId==c.id }">selected</c:if>  value="${c.id}">${c.courseName}</option>
 			    	</c:forEach>
 			    </select>
 			  </div>
@@ -69,8 +69,8 @@
  				</tr>
  			</thead>
  			<tbody>
- 				<c:if test="${not empty results }">
- 					<c:forEach items="${results}" var="sp" varStatus="i">
+ 				<c:if test="${not empty pageInfo.results }">
+ 					<c:forEach items="${pageInfo.results}" var="sp" varStatus="i">
 		 				<tr>
 		 					<td><input type="checkbox" name="checkId" value="${sp.id }" onclick="countCheck();"> </td>
 		 					<td>${i.index+1}</td>
@@ -85,17 +85,29 @@
 		 				</tr>
 	 				</c:forEach>
  				</c:if>
- 				<c:if test="${empty results }">
+ 				<c:if test="${empty pageInfo.results }">
  					<tr><td>当前查询结果为空!</td></tr>
  				</c:if>
  			</tbody>
 		</table>
 	</form>
+        <jsp:include page="../page.jsp"/>
 	</div>
 
+    <form id="pageForm" action="${pageContext.request.contextPath}/admin/video/index.action" method="post">
+        <input type="hidden" name="videoTitle" value="${videoTitle}">
+        <input type="hidden" name="speakerId" value="${speakerId}">
+        <input type="hidden" name="courseId" value="${courseId}">
+        <input type="hidden" name="pageNum" value="${pageInfo.pageNum}" id="queryPage">
+    </form>
 <script src="static/js/jquery-1.12.4.min.js"></script>
 <script src="static/js/jquery-confirm.min.js"></script>
 <script>
+    //翻页提交
+    function queryPage(page){
+        $('#queryPage').val(page);
+        $('#pageForm').submit();
+    }
 	//全选
 	function checkAll(){
 		var ca = document.getElementById('checkAll');
@@ -159,7 +171,6 @@
 	
 	//删除数据操作
 	function deleteInfo(id){
-		//admin/video/delete.do	
 		$.confirm({
 			title:'删除确认提示',
 			content:'确定要删除id为'+id+'的数据吗？',
@@ -171,13 +182,6 @@
 					action:function(){
 						//根据id发送删除请求ajax
 						$.get('admin/video/delete.action',{id:id},function(data){
-							/*if(data.success){
-								//成功，刷新页面
-								$.alert("删除数据成功");
-
-							}else{
-								$.alert(data.message);
-							}*/
                             $.alert(data)
                             refresh()
 						},'text');
@@ -187,16 +191,12 @@
 					//取消删除，自动关闭弹窗，不做其他操作
 				}
 			}
-		});	
-		
+		});
 		return false;
 	}
     function refresh() {
         location.href = "${pageContext.request.contextPath}/admin/video/index.action";
-        //location.reload();
     }
 </script>
-
-
 </body>
 </html>

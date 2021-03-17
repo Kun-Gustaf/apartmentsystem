@@ -4,6 +4,7 @@ import com.zhiyou100.video.model.Video;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -14,4 +15,8 @@ public interface VideoMapper {
     void deleteVideo(Integer id);
     void updateVideo(Video video);
     void addVideo(Video video);
+
+    int queryVideoTotal(HashMap<Object, Object> map);
+    List<Video> queryAllVideos(HashMap<Object, Object> map);
+  
 }

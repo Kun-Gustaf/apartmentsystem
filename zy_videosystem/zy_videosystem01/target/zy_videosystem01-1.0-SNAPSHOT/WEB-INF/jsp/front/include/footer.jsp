@@ -47,7 +47,7 @@
 				<input type="email" id="loginEmail" placeholder="请输入邮箱" name="email">
 				<input type="password" id="loginPassword" placeholder="请输入密码" name="password">
 				<div id="forget">
-					<a href="forgetpwd.action">忘记密码？</a>
+					<a href="${pageContext.request.contextPath}/front/user/forgetPwd.action">忘记密码？</a>
 				</div>
 				<input type="submit" value="登&#x3000;录">
 			</form>
@@ -67,12 +67,13 @@
 				<h3>新用户注册</h3>
 				<input type="email" id="regEmail" placeholder="请输入邮箱" name="email">
 				<input type="password" id="regPsw" placeholder="请输入密码" name="password">
-				<input type="password" id="regPswAgain" placeholder="请再次输入密码" name="pswAgain">
+				<input type="password" id="regPswAgain" placeholder="请再次输入密码" name="pswAgain" onblur="rePwd()">
 				<input type="submit" value="注&#x3000;册">
 			</form>
 		</div>
 		<div class="mask_content_footer">
 			<span id="reg_close">关&#x3000;闭</span>
 		</div>
+
 	</div>
 </div>

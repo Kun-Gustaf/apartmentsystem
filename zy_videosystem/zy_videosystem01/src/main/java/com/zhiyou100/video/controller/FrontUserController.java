@@ -6,8 +6,10 @@ import com.zhiyou100.video.model.User;
 import com.zhiyou100.video.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -38,18 +41,22 @@ public class FrontUserController {
     }
 
     @RequestMapping("/toProfile.action")
-    public String profile(HttpServletRequest req, String nickName, Integer sex, String birthday, String email, String province, String city) {
-        User user = new User();
+    public String profile(HttpSession session, String nickName, Integer sex, String birthday, String email, String province, String city) {
+        User user = (User) session.getAttribute("user");
         user.setNickName(nickName);
         user.setSex(sex);
         user.setEmail(email);
+        user.setBirthday(new Timestamp(new Date(birthday).getTime()));
         user.setUpdateTime(new Timestamp(System.currentTimeMillis()));
         user.setProvince(province);
         user.setCity(city);
         user.setBirthday(new Timestamp(System.currentTimeMillis()));
-        userService.updateUser(user);
-        HttpSession session = req.getSession();
-        session.setAttribute("user", user);
+        try{
+            userService.updateUser(user);
+            session.setAttribute("user", userService.getUserById(user.getId()));
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
         return "front/user/index";
     }
 
@@ -105,5 +112,51 @@ public class FrontUserController {
         user.setEmail(email);
         user.setPassword(password);
         return userService.regitserUser(user);
+    }
+
+    @RequestMapping("/confirmPwd.action")
+    @ResponseBody
+    public ResultObject confirmPwd(HttpSession session,String oldPassword){
+        User user = (User) session.getAttribute("user");
+        System.out.println(user+"======================");
+        user.setPassword(oldPassword);
+        return userService.confirmPwd(user);
+    }
+
+    @RequestMapping("/forgetPwd.action")
+    public String forgetPwd(){
+        return "/front/user/forget_pwd";
+    }
+
+    @RequestMapping("/sendEmail.action")
+    @ResponseBody
+    public ResultObject sendEmail(String email) throws Exception {
+        return userService.sendEmail(email);
+    }
+
+    @RequestMapping("/forgetAndResetPwd.action")
+    public String forgetAndResetPwd(Model model, String email, String captcha, String captchaCode){
+        if (captcha != null && captcha.equals(captchaCode)){
+            model.addAttribute("email",email);
+            model.addAttribute("captcha",captcha);
+            return "/front/user/reset_pwd";
+        }else {
+            return "/front/user/forget_pwd";
+        }
+    }
+    @RequestMapping( value = "/resetPwd2.action",method = RequestMethod.POST)
+    public String resetPwd(String email,String captcha,String password){
+        User user = new User();
+        user.setEmail(email);
+        user.setCaptcha(captcha);
+        user.setPassword(password);
+        userService.updateUserByEmail(user);
+        return "/front/index";
+    }
+
+    @RequestMapping("/checkEmail.action")
+    @ResponseBody
+    public ResultObject checkEmail(@RequestBody String email){
+        return userService.checkMail(email);
     }
 }

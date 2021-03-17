@@ -4,6 +4,7 @@ import com.zhiyou100.video.mapper.UserMapper;
 import com.zhiyou100.video.model.ResultObject;
 import com.zhiyou100.video.model.User;
 import com.zhiyou100.video.service.UserService;
+import com.zhiyou100.video.util.MailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,5 +63,46 @@ public class UserServiceImpl implements UserService {
         }
         System.out.println(resultObject+"=============================");
         return resultObject;
+    }
+
+    @Override
+    public ResultObject confirmPwd(User user) {
+        User user1 = userMapper.queryUserByIdAndPassword(user);
+        if(user1 == null){
+            return new ResultObject(201,"原密码输入错误",null);
+        }else {
+            return  new ResultObject(200,"原密码输入正确",null);
+        }
+    }
+
+    @Override
+    public ResultObject sendEmail(String email) {
+        StringBuffer str = new StringBuffer();
+        for (int i = 0; i < 6; i++) {
+            str.append(Math.round(Math.random()*9));
+        }
+        System.out.println(str+"*****************");
+        try {
+            /*MailUtil.send(email,"重置密码",new String(str));*/
+            return new ResultObject(200,"验证码已发送到邮箱，请注意查收",str);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResultObject(201,"验证码发送失败",str);
+    }
+
+    @Override
+    public void updateUserByEmail(User user) {
+        userMapper.updateUserByEmail(user);
+    }
+
+    @Override
+    public ResultObject checkMail(String email) {
+
+        User user = userMapper.checkEmail(email);
+        if(user == null){
+            return new ResultObject(201,"该邮箱未被注册",null);
+        }
+        return new ResultObject(200,"该邮箱已被注册",user);
     }
 }

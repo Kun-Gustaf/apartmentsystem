@@ -1,7 +1,10 @@
 package com.zhiyou100.video.service;
 
+import com.zhiyou100.video.model.PageModel;
+import com.zhiyou100.video.model.Speaker;
 import com.zhiyou100.video.model.Video;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface VideoService {
@@ -11,4 +14,6 @@ public interface VideoService {
     void deleteVideo(Integer id);
     void updateVideo(Video video);
     void addVideo(Video video);
+
+    PageModel<Video> queryVideoList(HashMap<Object, Object> map);
 }

@@ -34,6 +34,7 @@
             <result property="subjectId" column="subject_id"/>
         </association>
     </resultMap>
+
     <sql id="selectAll" >
          select  * from  video,course,speaker where video.speaker_id = speaker.id and video.course_id = course.id
     </sql>
@@ -69,5 +70,36 @@
     </select>
     <select id="queryVideoById" resultMap="videoMap">
         select * from video where id = #{id}
+    </select>
+    <select id="queryAllVideos" resultMap="videoMap" parameterType="java.util.HashMap" >
+         select  * from  video,course,speaker where video.speaker_id = speaker.id and video.course_id = course.id
+        <where>
+            <if test="videoTitle!=null and videoTitle != '' ">
+                videoTitle like '%' #{videoTitle} '%'
+            </if>
+            <if test="speakerId != null and speakerId != ''">
+                and speakerId = #{speakerId}
+            </if>
+            <if test="courseId != null and courseId != ''">
+                and courseId = #{courseId}
+            </if>
+        </where>
+        <if test="startIndex !=null">
+            limit #{startIndex},#{pageSize}
+        </if>
+    </select>
+    <select id="queryVideoTotal" resultType="java.lang.Integer" parameterType="java.util.HashMap" >
+         select  count(*) from  video,course,speaker where video.speaker_id = speaker.id and video.course_id = course.id
+        <where>
+            <if test="videoTitle!=null and videoTitle != '' ">
+              and videoTitle like '%' #{videoTitle} '%'
+            </if>
+            <if test="speakerId != null and speakerId != ''">
+                and speakerId = #{speakerId}
+            </if>
+            <if test="courseId != null and courseId != ''">
+                and courseId = #{courseId}
+            </if>
+        </where>
     </select>
 </mapper>

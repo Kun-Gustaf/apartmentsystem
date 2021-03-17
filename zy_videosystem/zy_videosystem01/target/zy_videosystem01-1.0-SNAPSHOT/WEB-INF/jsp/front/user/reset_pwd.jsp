@@ -23,24 +23,33 @@
     </header>
     <main>
         <div class="container">
-            <form class="ma" action="resetpwd.action" method="post">
+            <form class="ma" action="${pageContext.request.contextPath}/front/user/resetPwd2.action" method="post">
                <input type="hidden" name="email" value="${email}"/>
                 <input type="hidden" name="captcha" value="${captcha}"/>
                 <div class="form_header">
                     <div class="form_title">
                         <h2>重置密码</h2>
                     </div>
-                    
                 </div>
                 <div class="form_body">
                     <input type="password" placeholder="请输入新密码" id="password" name="password">
-                    <input type="password" style="width:100%" placeholder="再次输入新密码" id="password02" name="pwdAgain">
+                    <input type="password" style="width:100%" placeholder="再次输入新密码" id="password02" name="pwdAgain" onblur="repeatPwd()">
                     <input type="submit" style="margin:0px;width:100%" value="提交">
                 </div>
-                
             </form>
         </div>
     </main>
+
+    <script>
+        function repeatPwd() {
+            var p1 = $("#password").val();
+            var p2 = $("#password02").val();
+            if(p1 !== p2){
+                alert("两次输入的密码不一致")
+            }
+        }
+    </script>
+
 </body>
 
 </html>

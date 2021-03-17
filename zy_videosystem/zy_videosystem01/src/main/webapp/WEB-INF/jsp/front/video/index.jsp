@@ -17,7 +17,7 @@
 </head>
 
 <body class="w100">
-<jsp:include page="../include/header.jsp"></jsp:include>
+<jsp:include page="../include/header.jsp"/>
 
     <%--<div id="detail"></div>--%>
 

@@ -6,6 +6,7 @@ import com.zhiyou100.video.service.AdminService;
 import com.zhiyou100.video.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,9 +22,8 @@ public class AdminController {
     private AdminService adminService;
 
     @RequestMapping("/toLogin.action")
-    public String toAdminLogin(HttpServletRequest req){
-        Object admin = req.getSession().getAttribute("session_admin");
-        System.out.println(admin+"==========================");
+    public String toAdminLogin(HttpSession session){
+        Admin admin = (Admin) session.getAttribute("session_admin");
         if(admin != null){
             return "forward:/admin/speaker/index.action";
         }else {
@@ -31,15 +31,15 @@ public class AdminController {
         }
     }
     @RequestMapping( value = "/login.action", method = RequestMethod.POST)
-    public String adminLogin(HttpServletRequest req, String loginName, String loginPwd){
-        HttpSession session = req.getSession();
+    public String adminLogin(Model model, HttpSession session, String loginName, String loginPwd){
         Admin admin = adminService.getAdminByNameAndPwd(loginName, loginPwd);
+        System.out.println(admin);
         if(admin !=null){
             session.setAttribute("session_admin",admin);
             System.out.println(admin);
             return  "forward:/admin/speaker/index.action";
         }else {
-            req.setAttribute("message","你的用户名或密码错误！");
+            model.addAttribute("message","你的用户名或密码错误！");
             return  "/admin/login";
         }
     }

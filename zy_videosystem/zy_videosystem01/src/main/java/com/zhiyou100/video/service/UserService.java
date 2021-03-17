@@ -18,4 +18,12 @@ public interface UserService {
     void updateAvatar(User user);
 
     ResultObject regitserUser(User user);
+
+    ResultObject confirmPwd(User user);
+
+    ResultObject sendEmail(String email) throws Exception;
+
+    void updateUserByEmail(User user);
+
+    ResultObject checkMail(String email);
 }

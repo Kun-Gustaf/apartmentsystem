@@ -1,6 +1,7 @@
 package com.zhiyou100.video.controller;
 
 import com.zhiyou100.video.model.Course;
+import com.zhiyou100.video.model.PageModel;
 import com.zhiyou100.video.model.Speaker;
 import com.zhiyou100.video.model.Video;
 import com.zhiyou100.video.service.CourseService;
@@ -8,17 +9,19 @@ import com.zhiyou100.video.service.SpeakerService;
 import com.zhiyou100.video.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin/video")
-public class AdminVideoController {
+public class AdminVideoController extends  AdminBaseController{
 
     @Autowired
     private VideoService videoService;
@@ -28,13 +31,28 @@ public class AdminVideoController {
     private SpeakerService speakerService;
 
     @RequestMapping("/index.action")
-    public String getAllVideos(HttpServletRequest req){
-        List<Video> videos = videoService.getAllVideos();
+    public String getAllVideos(Model model, String videoTitle, Integer speakerId, Integer courseId, Integer pageNum){
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put("videoTitle",videoTitle);
+        map.put("speakerId",speakerId);
+        map.put("courseId",courseId);
+        //初始化pageNum
+        if(pageNum == null || pageNum < 0){
+            pageNum = DEFAULT_PAGE;
+        }
+        map.put("pageNum",pageNum);
+        map.put("pageSize",DEFAULT_VIDEO_PAGE_SIZE);
+        PageModel<Video> pageModel = videoService.queryVideoList(map);
+        //进行数据的回传
         List<Course> courses = courseService.getAllCourse();
         List<Speaker> speakers = speakerService.getAllSpeakers();
-        req.setAttribute("results",videos);
-        req.setAttribute("courses",courses);
-        req.setAttribute("speakers",speakers);
+        model.addAttribute("courses",courses);
+        model.addAttribute("speakers",speakers);
+        model.addAttribute("pageInfo",pageModel);
+
+        model.addAttribute("videoTitle",videoTitle);
+        model.addAttribute("speakerId",speakerId);
+        model.addAttribute("courseId",courseId);
         return "/admin/video/index";
     }
     @RequestMapping("/fuzzyQuery.action")
