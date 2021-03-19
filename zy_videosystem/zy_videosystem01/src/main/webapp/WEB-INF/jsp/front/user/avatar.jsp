@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="static/css/base.css">
     <link rel="stylesheet" href="static/css/profile.css">
     <title>在线公开课-智游教育|java|大数据|HTML5|python|UI|PHP视频教程</title>
+    <meta name="referrer" content="no-referrer" />
 </head>
 
 <body class="w100">
@@ -43,10 +44,10 @@
                             <p style="text-align: center;">当前头像</p>
                         </div>
                         <div class="profile_ifo_area">
-                            <form id="upload_form" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/front/user/resetAvatar.action?id= ${user.id}" >
+                            <form id="upload_form"  method="post" action="${pageContext.request.contextPath}/front/user/resetAvatar.action?id= ${user.id}" >
                                 <p>请选择图像文件</p>
                                 <div>
-                                <input type="file" class="form-control" name="headUrl" id="image_file" />
+                                <input type="text" class="form-control" name="headUrl" id="image_file" />
                                 <input class="btn btn-primary" type="submit" value="上传" />
                                 </div>
                             </form>

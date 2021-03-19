@@ -29,7 +29,7 @@
                 <table cellspacing="10">
                     <tr>
                         <td colspan="2">
-                            <a href="front/course/index.do?subjectId=1">
+                            <a href="${pageContext.request.contextPath}/front/course/index.action?subjectId=1">
                                 <img src="static/img/html5.jpg" alt="" class="image scale" draggable="false">
                                 <div class="headline">
                                     <span>Web前端教程</span>
@@ -39,7 +39,7 @@
                         </td>
                         <td>
                             <!--上线时修改id-->
-                            <a href="front/course/index.action?subjectId=6">
+                            <a href="${pageContext.request.contextPath}/front/course/index.action?subjectId=6">
                                 <img src="static/img/ui.jpg" alt="" class="image scale" draggable="false">
                                 <div class="headline">
                                     <span>UI设计教程</span>
@@ -68,7 +68,7 @@
                             </a>
                         </td>
                         <td colspan="2">
-                            <a href="front/course/index.action?subjectId=10">
+                            <a href="${pageContext.request.contextPath}/front/course/index.action?subjectId=10">
                                 <img src="static/img/python.jpg" alt="" class="image scale" draggable="false">
                                 <div class="headline">
                                     <span>Python教程</span>
@@ -79,7 +79,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <a href="front/course/index.action?subjectId=11">
+                            <a href="${pageContext.request.contextPath}/front/course/index.action?subjectId=11">
                                 <img src="static/img/php.jpg" alt="" class="image scale" draggable="false">
                                 <div class="headline">
                                     <span>PHP教程</span>
@@ -126,9 +126,9 @@
     </div>
 
     <%@include file="include/footer.jsp"%>
-
     <%@include file="include/script.html"%>
-    
+    <script src="/static/js/md5.js"></script>
+    <script src="/static/js/sha1.js"></script>
 </body>
 
 </html>

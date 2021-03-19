@@ -37,4 +37,9 @@ public class CourseServiceImpl implements CourseService {
     public void addCourse(Course course) {
         courseMapper.addCourse(course);
     }
+
+    @Override
+    public List<Course> getCourses(Integer subjectId) {
+        return courseMapper.queryCoursesBySubjectId(subjectId);
+    }
 }

@@ -23,20 +23,6 @@ public class Video implements Serializable {
     public Video() {
     }
 
-    public Video(Integer id, String videoTitle, Integer speakerId, Integer courseId, Integer videoLength, String videoImageUrl, String videoUrl, String videoDesc, Timestamp insertTime, Timestamp updateTime, Integer videoPlayTimes) {
-        this.id = id;
-        this.videoTitle = videoTitle;
-        this.speakerId = speakerId;
-        this.courseId = courseId;
-        this.videoLength = videoLength;
-        this.videoImageUrl = videoImageUrl;
-        this.videoUrl = videoUrl;
-        this.videoDesc = videoDesc;
-        this.insertTime = insertTime;
-        this.updateTime = updateTime;
-        this.videoPlayTimes = videoPlayTimes;
-    }
-
     public Video(Integer id, String videoTitle, Integer speakerId, Integer courseId, Integer videoLength, String videoImageUrl, String videoUrl, String videoDesc, Timestamp insertTime, Timestamp updateTime, Integer videoPlayTimes, Course course, Speaker speaker) {
         this.id = id;
         this.videoTitle = videoTitle;

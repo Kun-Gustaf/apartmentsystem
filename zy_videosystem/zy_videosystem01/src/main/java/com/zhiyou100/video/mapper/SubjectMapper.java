@@ -11,4 +11,5 @@ public interface SubjectMapper {
     Subject querySubjectById(Integer id);
 
     List<Subject> queryAllSubjects();
+
 }

@@ -18,5 +18,8 @@ public interface VideoMapper {
 
     int queryVideoTotal(HashMap<Object, Object> map);
     List<Video> queryAllVideos(HashMap<Object, Object> map);
-  
+
+    List<Video> queryVideosByCourseId(Integer courseId);
+    Video queryVideoByVideoId(Integer videoId);
+    Integer queryCourseByVideoId(Integer videoId);
 }

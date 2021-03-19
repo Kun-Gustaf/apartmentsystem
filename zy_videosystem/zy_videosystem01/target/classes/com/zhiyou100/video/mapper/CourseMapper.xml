@@ -15,6 +15,19 @@
             <id property="id" column="id"/>
             <result property="subjectName" column="subject_name"/>
         </association>
+        <collection property="videoList" ofType="video">
+            <id property="id" column="id"/>
+            <result property="videoTitle" column="video_title"/>
+            <result property="speakerId" column="speaker_id"/>
+            <result property="courseId" column="course_id"/>
+            <result property="videoLength" column="video_length"/>
+            <result property="videoImageUrl" column="video_image_url"/>
+            <result property="videoUrl" column="video_url"/>
+            <result property="videoDesc" column="video_desc"/>
+            <result property="insertTime" column="insert_time"/>
+            <result property="updateTime" column="update_time"/>
+            <result property="videoPlayTimes" column="video_play_times"/>
+        </collection>
     </resultMap>
     <insert id="addCourse">
         insert into course(course_name,course_desc,insert_time,update_time,subject_id) values (#{courseName},#{courseDesc},#{insertTime},#{updateTime},#{subjectId})
@@ -31,8 +44,9 @@
         select * from course,`subject` where course.subject_id = `subject`.id
     </select>
     <select id="queryCourseById" resultMap="courseMap">
-        select * from course,`subject` where course.subject_id = `subject` .id and course.id = #{id}
+        select * from course,`subject` where course.subject_id = `subject`.id and course.id = #{id}
     </select>
-
-
+    <select id="queryCoursesBySubjectId" resultMap="courseMap">
+        select * from course,`subject` where course.subject_id = `subject`.id  and subject_id = #{subjectId}
+    </select>
 </mapper>

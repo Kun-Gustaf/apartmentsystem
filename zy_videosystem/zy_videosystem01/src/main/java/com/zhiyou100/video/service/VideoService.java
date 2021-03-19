@@ -14,6 +14,8 @@ public interface VideoService {
     void deleteVideo(Integer id);
     void updateVideo(Video video);
     void addVideo(Video video);
-
     PageModel<Video> queryVideoList(HashMap<Object, Object> map);
+    List<Video>  getVideosByCourseId(Integer courseId);
+    Video queryVideoByVideoId(Integer videoId);
+    Integer queryCourseByVideoId(Integer videoId);
 }

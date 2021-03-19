@@ -16,22 +16,21 @@
 					   poster="${video.videoImageUrl}" data-setup="{}">
 				</video>
 			</div>
-
 			<div class="right">
 				<p class="right-title">${video.videoTitle}</p>
 				<div class="avatar">
 					<span style="background-image: url(${speaker.speakerHeadUrl})"></span>
-					<p><b>讲师：${speaker.speakerName}</b><br><i>${speaker.speakerDescr}</i></p>
+					<p><b>讲师：${speaker.speakerName}</b><br><i>${speaker.speakerDesc}</i></p>
 				</div>
 				<p class="video-intro">
-					<span>本节内容：</span> ${video.videoDescr}
+					<span>本节内容：</span> ${video.videoDesc}
 				</p>
 			</div>
 		</div>
 
 		<div class="kcjs">
 			<p class="title">课程介绍</p>
-			<p class="content">${course.courseDescr}</p>
+			<p class="content">${course.courseDesc}</p>
 		</div>
 
 	</div>
@@ -40,19 +39,16 @@
 <div class="catalog">
 	<div class="container">
 		<p class="title">目录</p>
-
 		<c:forEach items="${videoList}" var="video" >
 			<div class="chapter">
 				<p class="biaoti"><a href="front/video/index.action?videoId=${video.id}&subjectId=${subjectId}">${video.videoTitle}</a></p>
-				<p class="lecturer">${video.videoDescr}</p>
-				<p class="lecturer">讲师：${video.speakerName}</p>
+				<p class="lecturer">${video.videoDesc}</p>
+				<p class="lecturer">讲师：${speaker.speakerName}</p>
 				<div class="v-info">
 					<span class="count"><img src="static/img/count.png" alt="">${video.videoPlayTimes}</span>
-					<span class="duration"><img src="static/img/player.png" alt="">${video.videoLengthStr}</span>
+					<span class="duration"><img src="static/img/player.png" alt="">${video.videoLength}</span>
 				</div>
 			</div>
 		</c:forEach>
-
-
 	</div>
 </div>

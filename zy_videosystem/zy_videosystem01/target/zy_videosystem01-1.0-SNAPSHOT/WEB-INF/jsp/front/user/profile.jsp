@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="static/css/base.css">
     <link rel="stylesheet" href="static/css/profile.css">
     <title>在线公开课-智游教育|java|大数据|HTML5|python|UI|PHP视频教程</title>
-
+    <meta name="referrer" content="no-referrer" />
 </head>
 
 <body class="w100">
@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="form_group">
                                     <span class="dd">生&#x3000;日：</span>
-                                    <input type="text"  name="birthday" value="${user.birthday}">
+                                    <input type="date"  name="birthdayStr" value="${user.birthday}">
                                 </div>
                                 <div class="form_group">
                                     <span class="dd">邮&#x3000;箱：</span>
@@ -60,8 +60,13 @@
                                 </div>
                                 <div class="form_group">
                                     <span class="dd">所在地：</span>
-                                    <input type="text" id="province" name="province" value="${user.province}">
-                                    <input type="text" id="city" name="city" value="${user.city }">
+                                    <input type="hidden" id="uprovince" value="${user.province }">
+                                    <input type="hidden" id="ucity" value="${user.city }">
+                                    <div id="city">
+                                        <select class="prov" name="province"></select>
+                                        <select class="city" name="city"></select>
+                                    </div>
+
                                 </div>
                                 <div class="form_submit dd">
                                     <input type="submit"  value="保&#x3000;存">
@@ -76,7 +81,7 @@
     </main>
     <jsp:include page="ufooter.jsp"/>
     <%@include file="../include/script.html"%>
-    <script src="static/js/jquery.cityselect.min.js"/>
+    <script src="static/js/jquery.cityselect.min.js"></script>
     <script type="text/javascript">
 
 		$(function(){
@@ -84,8 +89,7 @@
 			var city = $('#ucity').val();
 
 			console.log(province+"-"+city);
-			
-			if(null!=province && province!=""){			
+			if(null!=province && province!==""){
 				$("#city").citySelect({
 					prov: province,  //默认省份
 					city: city,  //默认城市

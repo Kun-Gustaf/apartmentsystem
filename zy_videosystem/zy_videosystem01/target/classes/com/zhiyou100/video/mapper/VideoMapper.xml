@@ -102,4 +102,14 @@
             </if>
         </where>
     </select>
+    <select id="queryVideosByCourseId" resultType="video">
+        select * from video where course_id = #{courseId}
+    </select>
+    <select id="queryVideoByVideoId" resultMap="videoMap">
+        select * from video,course,speaker where video.course_id = course.id and video.speaker_id = speaker.id  and video.id = #{videoId}
+    </select>
+    <select id="queryCourseByVideoId" resultType="Integer">
+        select course_id from  video where id = #{videoId}
+    </select>
+
 </mapper>

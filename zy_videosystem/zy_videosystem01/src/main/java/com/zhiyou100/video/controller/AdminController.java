@@ -1,17 +1,12 @@
 package com.zhiyou100.video.controller;
 
 import com.zhiyou100.video.model.Admin;
-import com.zhiyou100.video.model.Course;
 import com.zhiyou100.video.service.AdminService;
-import com.zhiyou100.video.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -45,8 +40,7 @@ public class AdminController {
     }
 
     @RequestMapping("/logout.action")
-    public String logout(HttpServletRequest req){
-        HttpSession session = req.getSession();
+    public String logout(HttpSession session){
         session.removeAttribute("session_admin");
         return "/front/index";
     }

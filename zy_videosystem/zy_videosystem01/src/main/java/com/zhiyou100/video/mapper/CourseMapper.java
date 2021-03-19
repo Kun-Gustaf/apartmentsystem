@@ -17,5 +17,5 @@ public interface CourseMapper {
     void updateCourse(Course course);
     //通过id删除课程
     void deleteCourseById(Integer id);
-
+    List<Course> queryCoursesBySubjectId(Integer subjectId);
 }

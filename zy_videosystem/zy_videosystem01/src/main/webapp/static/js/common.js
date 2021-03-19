@@ -2,7 +2,6 @@
 	这里放置前台功能通用的一些js方法
 	主要有：登录窗口的切换、注册窗口的切换、登录功能(ajax)、注册功能(ajax)
 */
-
 $(function(){
 	
 	//显示登录窗口
@@ -26,11 +25,12 @@ $(function(){
 	$('#loginForm').validate({
 		submitHandler:function(form){
 			//ajax提交登录信息，并且返回登录结果
-			/*var email = $('#loginEmail').val();
-			var password = $('#loginPassword').val(); */
-			console.log($('#loginForm').serialize());
+			var email = $('#loginEmail').val();
+			var password = $('#loginPassword').val();
+			console.log(email + password)
+			/*alert({"email":email,"password":password});*/
 			//使用ajax的post方法提交登录信息
-			$.post('/front/user/login.action',$('#loginForm').serialize(),function(data){
+			$.post('/front/user/login.action',{"email":email,"password":password},function(data){
 			    if(data.code === 200){
 			        alert("登陆成功")
                 }else {
@@ -57,11 +57,7 @@ $(function(){
 		}
 	});
     function refresh() {
-       /* location.href = "${pageContext.request.contextPath}/front/index.action";*/
         location.href = "/index.action";
-/*
-        location.reload();
-*/
     }
 	
 	//注册请求的处理
@@ -101,7 +97,5 @@ $(function(){
 			password:'密码是必须填写的，3-30个字符',
 			pswAgain:'两次密码必须输入一致'
 		}
-	});	
-	
-	
+	});
 });

@@ -4,6 +4,7 @@ import com.zhiyou100.video.model.Admin;
 import com.zhiyou100.video.model.ResultObject;
 import com.zhiyou100.video.model.User;
 import com.zhiyou100.video.service.UserService;
+import com.zhiyou100.video.util.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -91,16 +92,15 @@ public class FrontUserController {
     }
 
     @RequestMapping("/resetAvatar.action")
-    public String resetAvatar(MultipartFile headUrl, Integer id) throws IOException {
-        String originalFilename = headUrl.getOriginalFilename();
-        String filename = UUID.randomUUID().toString().replaceAll("-", "");
-        File file = new File("D:\\space\\code\\zy_videosystem\\zy_videosystem01\\src\\main\\webapp\\static\\img\\"+filename + originalFilename);
-        headUrl.transferTo(file);
+    public String resetAvatar(String headUrl, Integer id,HttpSession session) throws IOException {
         User user = new User();
         user.setId(id);
-        user.setHeadUrl(file.getAbsolutePath());
+        user.setHeadUrl(headUrl);
         user.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+        System.out.println(user);
         userService.updateAvatar(user);
+        user = userService.getUserById(user.getId());
+        session.setAttribute("user",user);
         return "front/user/index";
     }
 
@@ -110,7 +110,7 @@ public class FrontUserController {
         System.out.println(email+"-------------------"+password);
         User user = new User();
         user.setEmail(email);
-        user.setPassword(password);
+        user.setPassword(MD5Utils.getMD5String(password+MD5Utils.SALT));
         return userService.regitserUser(user);
     }
 

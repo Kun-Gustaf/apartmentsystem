@@ -69,4 +69,19 @@ public class VideoServiceImpl implements VideoService {
         pageModel.setPageSize(pageSize);
         return pageModel;
     }
+
+    @Override
+    public List<Video> getVideosByCourseId(Integer courseId) {
+        return videoMapper.queryVideosByCourseId(courseId);
+    }
+
+    @Override
+    public Video queryVideoByVideoId(Integer videoId) {
+        return videoMapper.queryVideoByVideoId(videoId);
+    }
+
+    @Override
+    public Integer queryCourseByVideoId(Integer videoId) {
+        return videoMapper.queryCourseByVideoId(videoId);
+    }
 }

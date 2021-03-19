@@ -13,4 +13,6 @@
     <select id="queryAllSubjects" resultMap="subjectMap">
         select * from subject
     </select>
+
+
 </mapper>

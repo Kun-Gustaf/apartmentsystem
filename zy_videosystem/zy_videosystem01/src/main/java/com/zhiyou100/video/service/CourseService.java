@@ -10,4 +10,5 @@ public interface CourseService {
     void deleteCourse(Integer id);
     void updateCourse(Course course);
     void addCourse(Course course);
+    List<Course> getCourses(Integer subjectId);
 }

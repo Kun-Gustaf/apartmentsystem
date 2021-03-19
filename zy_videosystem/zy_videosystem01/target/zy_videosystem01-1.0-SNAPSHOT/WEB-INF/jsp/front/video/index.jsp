@@ -13,7 +13,7 @@
     <%@include file="../include/style.html"%>
     <link href="static/css/video-js.css" rel="stylesheet" type="text/css">
     <title>在线公开课-智游教育|java|大数据|HTML5|python|UI|PHP视频教程</title>
-
+    <meta name="referrer" content="no-referrer" />
 </head>
 
 <body class="w100">
@@ -31,16 +31,14 @@
 </div>
     
     <%@include file="../include/footer.jsp"%>
-
     <%@include file="../include/script.html"%>
     <script src="static/js/video.js"></script>
     <script>
         $(function () {
         	var id = $('#videoId').val();
-           $('#content').load('front/video/videoData.do?videoId='+id);
-           
+           $('#content').load('front/video/videoData.action?videoId='+id);
            //播放量统计,不需要返回结果处理
-           $.get('front/video/state.do?videoId='+id);
+           $.get('front/video/state.action?videoId='+id);
 		});
     </script>
 </body>

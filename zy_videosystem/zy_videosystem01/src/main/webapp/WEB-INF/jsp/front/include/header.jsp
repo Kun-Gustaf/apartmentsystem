@@ -3,10 +3,10 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 
 <header>
+    <script src="/static/js/md5.js"></script>
+    <script src="/static/js/sha1.js"></script>
 	<div class="container">
 		<span>欢迎来到IT培训的黄埔军校——智游教育！</span>
-
-
 		<c:if test="${not empty user}">
 			<div id="userBlock" style="float:right">
 				<a href="front/user/logout.action">退出</a>

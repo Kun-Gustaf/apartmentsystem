@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Component
 public class Course implements Serializable {
@@ -15,7 +16,7 @@ public class Course implements Serializable {
     private Timestamp updateTime;
     private Integer subjectId;
     private Subject subject;
-
+    private List<Video> videoList;
     public Course() {
     }
 
@@ -27,6 +28,17 @@ public class Course implements Serializable {
         this.updateTime = updateTime;
         this.subjectId = subjectId;
         this.subject = subject;
+    }
+
+    public Course(Integer id, String courseName, String courseDesc, Timestamp insertTime, Timestamp updateTime, Integer subjectId, Subject subject, List<Video> videoList) {
+        this.id = id;
+        this.courseName = courseName;
+        this.courseDesc = courseDesc;
+        this.insertTime = insertTime;
+        this.updateTime = updateTime;
+        this.subjectId = subjectId;
+        this.subject = subject;
+        this.videoList = videoList;
     }
 
     public Subject getSubject() {
@@ -85,6 +97,14 @@ public class Course implements Serializable {
         this.subjectId = subjectId;
     }
 
+    public List<Video> getVideoList() {
+        return videoList;
+    }
+
+    public void setVideoList(List<Video> videoList) {
+        this.videoList = videoList;
+    }
+
     @Override
     public String toString() {
         return "Course{" +
@@ -94,6 +114,8 @@ public class Course implements Serializable {
                 ", insertTime=" + insertTime +
                 ", updateTime=" + updateTime +
                 ", subjectId=" + subjectId +
+                ", subject=" + subject +
+                ", videoList=" + videoList +
                 '}';
     }
 }
