@@ -30,14 +30,15 @@ public class FrontVideoController {
     }
 
     @RequestMapping("/videoData.action")
-    public String videoData(Model model, Integer videoId) {
+    public String videoData(Model model, Integer videoId,Integer subjectId) {
         Video video = videoService.queryVideoByVideoId(videoId);
         System.out.println(video);
         System.out.println(video.getSpeaker());
         model.addAttribute("speaker", video.getSpeaker());
         System.out.println(video.getCourse());
         model.addAttribute("course", video.getCourse());
-
+        Subject subject = subjectService.getSubjectById(subjectId);
+        model.addAttribute("subject",subject);
         model.addAttribute("video", video);
         List<Video> videoList = videoService.getVideosByCourseId(videoService.queryCourseByVideoId(videoId));
         model.addAttribute("videoList", videoList);

@@ -98,9 +98,15 @@ public class FrontUserController {
     @RequestMapping("/resetAvatar.action")
     public String resetAvatar(MultipartFile headUrl, Integer id, HttpSession session) throws IOException {
         String originalFilename = headUrl.getOriginalFilename();
-        String filename = UUID.randomUUID().toString().replaceAll("-", "");
-        File file = new File("D:\\space\\code\\zy_videosystem\\zy_videosystem01\\src\\main\\webapp\\static\\img\\"+filename + originalFilename);
-        headUrl.transferTo(file);
+       /* String filename = UUID.randomUUID().toString().replaceAll("-", "");*/
+        File file = new File("D:\\space\\code\\zy_videosystem\\zy_videosystem01\\src\\main\\webapp\\static\\img\\"+ originalFilename);
+        new Thread(()->{
+            try {
+                headUrl.transferTo(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
         User user = new User();
         user.setId(id);
         user.setHeadUrl(file.getName());

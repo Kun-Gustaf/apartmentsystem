@@ -28,12 +28,12 @@
 	</div>
 </div>
 <!--目录-->
-<div class="catalog">
+<div class="catalog" id="catalog">
 	<div class="container">
 		<p class="title">目录</p>
 		<c:forEach items="${videoList}" var="video" >
 			<div class="chapter">
-				<p class="biaoti"><a href="front/video/index.action?videoId=${video.id}&subjectId=${subjectId}">${video.videoTitle}</a></p>
+				<p class="biaoti"><a href="front/video/index.action?videoId=${video.id}&subjectId=${subject.id}">${video.videoTitle}</a></p>
 				<p class="lecturer">${video.videoDesc}</p>
 				<p class="lecturer">讲师：${speaker.speakerName}</p>
 				<div class="v-info">

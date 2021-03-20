@@ -18,9 +18,6 @@
 
 <body class="w100">
 <jsp:include page="../include/header.jsp"/>
-
-    <%--<div id="detail"></div>--%>
-
 <div>
     <!--面包屑导航-->
     <div class="container mian-nav">公开课 / ${subject.subjectName}</div>
@@ -36,10 +33,12 @@
     <script>
         $(function () {
         	var id = $('#videoId').val();
-           $('#content').load('front/video/videoData.action?videoId='+id);
-           //播放量统计,不需要返回结果处理
-           $.get('front/video/state.action?videoId='+id);
-		});
+
+            //播放量统计,不需要返回结果处理
+            $.get('front/video/state.action?videoId='+id);
+            $('#content').load('front/video/videoData.action?videoId='+id+'&subjectId='+${subject.id});
+
+        });
     </script>
 </body>
 

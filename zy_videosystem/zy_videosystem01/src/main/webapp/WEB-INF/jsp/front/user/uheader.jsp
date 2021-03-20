@@ -22,7 +22,7 @@
 					</c:if>
 
 					<c:if test="${not empty sessionScope.user.headUrl}">
-						<img id="avatar" src="${user.headUrl}" alt="">
+						<img id="avatar" src="/static/img/${user.headUrl}" alt="">
 					</c:if>
 
 				</a>

@@ -38,7 +38,7 @@
                         </c:if>
 
                         <c:if test="${not empty user.headUrl}">
-                            <img width="200px" height="200px" src="${user.headUrl}">
+                            <img width="200px" height="200px" src="static/img/${user.headUrl}">
                         </c:if>
                     </div>
                     <div class="profile_ifo_area">
