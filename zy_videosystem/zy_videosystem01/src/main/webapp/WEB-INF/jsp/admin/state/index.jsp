@@ -8,10 +8,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>统计 - 统计分析</title>
 <link href="static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 引入 echarts.js -->
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
 </head>
 <body>
-
-
 	<!-- 引入公用的导航信息 -->
 	<jsp:include page="../header.jsp">
 		<jsp:param value="state" name="fromJsp"/>

@@ -38,16 +38,16 @@
                             </c:if>
                             
                             <c:if test="${not empty user.headUrl}">
-                                  <img width="200px" height="200px" src="${user.headUrl}">
+                                  <img width="200px" height="200px" src="${pageContext.request.contextPath}/static/img/${user.headUrl}">
                             </c:if>
                             
                             <p style="text-align: center;">当前头像</p>
                         </div>
                         <div class="profile_ifo_area">
-                            <form id="upload_form"  method="post" action="${pageContext.request.contextPath}/front/user/resetAvatar.action?id= ${user.id}" >
+                            <form id="upload_form" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/front/user/resetAvatar.action?id= ${user.id}" >
                                 <p>请选择图像文件</p>
                                 <div>
-                                <input type="text" class="form-control" name="headUrl" id="image_file" />
+                                <input type="file" class="form-control" name="headUrl" id="image_file" />
                                 <input class="btn btn-primary" type="submit" value="上传" />
                                 </div>
                             </form>

@@ -18,4 +18,10 @@ public interface VideoService {
     List<Video>  getVideosByCourseId(Integer courseId);
     Video queryVideoByVideoId(Integer videoId);
     Integer queryCourseByVideoId(Integer videoId);
+    //统计播放次数
+    List<HashMap> queryVideoPlayTime();
+
+    void addVideoPlayTimes(Integer num,Integer id);
+
+    Integer getVideoPlayTimes(Integer id);
 }

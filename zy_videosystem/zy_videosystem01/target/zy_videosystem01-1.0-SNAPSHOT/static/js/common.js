@@ -33,10 +33,10 @@ $(function(){
 			$.post('/front/user/login.action',{"email":email,"password":password},function(data){
 			    if(data.code === 200){
 			        alert("登陆成功")
+                    refresh()
                 }else {
 			        alert(data.msg);
                 }
-                refresh()
 			},'json');
 			
 		},
@@ -70,6 +70,7 @@ $(function(){
 				console.log(result);
 				if(result.code === 200){
 					//注册成功,刷新页面
+                    alert(result.msg)
                     refresh()
 				}else{
 					alert(result.msg);

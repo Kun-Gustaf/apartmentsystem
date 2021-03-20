@@ -22,4 +22,11 @@ public interface VideoMapper {
     List<Video> queryVideosByCourseId(Integer courseId);
     Video queryVideoByVideoId(Integer videoId);
     Integer queryCourseByVideoId(Integer videoId);
+
+    //统计各课程的播放次数
+    List<HashMap> queryVideoPlayTime();
+
+    void addVideoPlayTimes(@Param("num") Integer num,@Param("id") Integer id);
+
+    Integer queryVideoPlayTimes(Integer id);
 }

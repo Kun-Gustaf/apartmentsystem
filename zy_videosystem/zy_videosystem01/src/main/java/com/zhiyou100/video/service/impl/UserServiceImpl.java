@@ -28,8 +28,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResultObject getUserByEmailAndPwd(String email, String password) {
+        System.out.println("加密后的密码："+password);
         User user = userMapper.queryUserByEmailAndPwd(email, password);
-        if(user == null){
+        int state = userMapper.queryStateByEmail(user);
+        if(user == null && state != 1){
             return new ResultObject(201,"您的用户名和密码不匹配",null);
         }
         return new ResultObject(200,"helloWorld",user);
@@ -53,10 +55,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResultObject regitserUser(User user) {
         ResultObject resultObject = null;
+        user.setActive(System.currentTimeMillis());
         try{
             user.setInsertTime(new Timestamp(System.currentTimeMillis()));
             userMapper.addUser(user);
-            resultObject = new ResultObject(200,"注册成功",user);
+            MailUtil.send(user.getEmail(),"激活邮件","<a href='http://akwvpd.natappfree.cc/front/user/activeAccount.action?email="+user.getEmail() +"'>激活邮件</a>");
+            resultObject = new ResultObject(200,"注册成功,我们将会发送给您邮件，请您在5分钟之内及时激活",user);
         }catch(Exception e){
             e.printStackTrace();
             resultObject = new ResultObject(201,"注册失败",null);
@@ -68,10 +72,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResultObject confirmPwd(User user) {
         User user1 = userMapper.queryUserByIdAndPassword(user);
+        System.out.println("查询出来的user："+user1);
         if(user1 == null){
-            return new ResultObject(201,"原密码输入错误",null);
+            return new ResultObject(201,"旧密码输入错误",null);
         }else {
-            return  new ResultObject(200,"原密码输入正确",null);
+            return  new ResultObject(200,"旧密码输入正确",null);
         }
     }
 
@@ -92,6 +97,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public ResultObject activeAccount(String email) {
+        long time1 = userMapper.queryActive(email) + 1000*60;
+        long time2 = System.currentTimeMillis();
+         long time3 = (time2 - time1) - 60*1000*5;
+        System.out.println(time3);
+        if(time3 <= 0){
+            userMapper.updateUserState(email);
+            return new ResultObject(200,"激活成功",null);
+        }
+        userMapper.deleteUserByEmail(email);
+        return new ResultObject(201,"激活失败,请重新注册",null);
+    }
+
+    @Override
     public void updateUserByEmail(User user) {
         userMapper.updateUserByEmail(user);
     }
@@ -105,4 +124,6 @@ public class UserServiceImpl implements UserService {
         }
         return new ResultObject(200,"该邮箱已被注册",user);
     }
+
+
 }

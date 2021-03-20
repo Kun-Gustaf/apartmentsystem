@@ -84,4 +84,19 @@ public class VideoServiceImpl implements VideoService {
     public Integer queryCourseByVideoId(Integer videoId) {
         return videoMapper.queryCourseByVideoId(videoId);
     }
+
+    @Override
+    public List<HashMap> queryVideoPlayTime() {
+        return videoMapper.queryVideoPlayTime();
+    }
+
+    @Override
+    public void addVideoPlayTimes(Integer num,Integer id) {
+        videoMapper.addVideoPlayTimes(num,id);
+    }
+
+    @Override
+    public Integer getVideoPlayTimes(Integer id) {
+        return videoMapper.queryVideoPlayTimes(id);
+    }
 }

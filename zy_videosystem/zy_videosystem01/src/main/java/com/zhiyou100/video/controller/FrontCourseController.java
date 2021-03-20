@@ -22,12 +22,13 @@ public class FrontCourseController {
     private CourseService courseService;
     @Autowired
     private SubjectService subjectService;
+
     @RequestMapping("/index.action")
-    public String courseIndex(Model model, Integer subjectId){
+    public String courseIndex(Model model, Integer subjectId) {
         Subject subject = subjectService.getSubjectById(subjectId);
-        model.addAttribute("subject",subject);
+        model.addAttribute("subject", subject);
         List<Course> courses = courseService.getCourses(subjectId);
-        model.addAttribute("courses",courses);
+        model.addAttribute("courses", courses);
 
         System.out.println("---------------------------");
         for (int i = 0; i < courses.size(); i++) {

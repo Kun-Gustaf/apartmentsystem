@@ -24,42 +24,42 @@ public class AdminCourseController {
     private SubjectService subjectService;
 
     @RequestMapping("/delete.action")
-    private String deleteCourse(HttpServletRequest req,Integer id){
+    private String deleteCourse(HttpServletRequest req, Integer id) {
         System.out.println(id);
         courseService.deleteCourse(id);
         return "forward:/admin/course/index.action";
     }
 
     @RequestMapping("/edit.action")
-    private String editCourse(HttpServletRequest req,Integer id){
+    private String editCourse(HttpServletRequest req, Integer id) {
         List<Subject> subjects = subjectService.getAllSubjects();
         System.out.println(subjects);
         subjects.forEach(System.out::println);
-        req.setAttribute("subjects",subjects);
+        req.setAttribute("subjects", subjects);
         Course course = courseService.getCourse(id);
-        req.setAttribute("course",course);
+        req.setAttribute("course", course);
         return "/admin/course/saveOrUpdate";
     }
 
 
     @RequestMapping("/add.action")
-    public ModelAndView addCourse(){
+    public ModelAndView addCourse() {
         ModelAndView mav = new ModelAndView();
         List<Subject> subjects = subjectService.getAllSubjects();
         System.out.println(subjects);
         subjects.forEach(System.out::println);
-        mav.addObject("subjects",subjects);
+        mav.addObject("subjects", subjects);
         mav.setViewName("/admin/course/saveOrUpdate");
         return mav;
     }
 
     @RequestMapping("/saveOrUpdate.action")
-    public String saveOrUpdateCourse(HttpServletRequest req){
+    public String saveOrUpdateCourse(HttpServletRequest req) {
         Course course = InjectData.injectCourse(req);
         course.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-        if(course.getId()!=null){
+        if (course.getId() != null) {
             courseService.updateCourse(course);
-        }else {
+        } else {
             course.setInsertTime(new Timestamp(System.currentTimeMillis()));
             courseService.addCourse(course);
         }
@@ -67,10 +67,10 @@ public class AdminCourseController {
     }
 
     @RequestMapping("/index.action")
-    public ModelAndView getAllCourses(HttpServletRequest req){
+    public ModelAndView getAllCourses(HttpServletRequest req) {
         List<Course> courses = courseService.getAllCourse();
         ModelAndView mav = new ModelAndView();
-        req.setAttribute("results",courses);
+        req.setAttribute("results", courses);
         courses.forEach(System.out::println);
         mav.setViewName("/admin/course/index");
         return mav;

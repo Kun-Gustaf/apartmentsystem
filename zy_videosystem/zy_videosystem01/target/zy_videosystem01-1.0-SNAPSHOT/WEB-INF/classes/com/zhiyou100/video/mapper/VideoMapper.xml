@@ -43,6 +43,7 @@
         insert into video(video_title,speaker_id,course_id,video_length,video_image_url,video_url,video_desc,insert_time,video_play_times)
          values (#{videoTitle},#{speakerId},#{courseId},#{videoLength},#{videoImageUrl},#{videoUrl},#{videoDesc},#{insertTime},#{videoPlayTimes})
     </insert>
+
     <update id="updateVideo">
         update video set video_title = #{videoTitle},speaker_id = #{speakerId},course_id =#{courseId},video_length=#{videoLength},
         video_image_url=#{videoImageUrl},video_url=#{videoUrl},video_desc=#{videoDesc},update_time=#{updateTime},video_play_times=#{videoPlayTimes} where id = #{id}
@@ -73,34 +74,30 @@
     </select>
     <select id="queryAllVideos" resultMap="videoMap" parameterType="java.util.HashMap" >
          select  * from  video,course,speaker where video.speaker_id = speaker.id and video.course_id = course.id
-        <where>
-            <if test="videoTitle!=null and videoTitle != '' ">
-                videoTitle like '%' #{videoTitle} '%'
-            </if>
-            <if test="speakerId != null and speakerId != ''">
-                and speakerId = #{speakerId}
-            </if>
-            <if test="courseId != null and courseId != ''">
-                and courseId = #{courseId}
-            </if>
-        </where>
+        <if test="videoTitle!=null and videoTitle != '' ">
+            and video_title like '%' #{videoTitle} '%'
+        </if>
+        <if test="speakerId != null and speakerId != ''">
+            and speaker_id = #{speakerId}
+        </if>
+        <if test="courseId != null and courseId != ''">
+            and course_id = #{courseId}
+        </if>
         <if test="startIndex !=null">
             limit #{startIndex},#{pageSize}
         </if>
     </select>
     <select id="queryVideoTotal" resultType="java.lang.Integer" parameterType="java.util.HashMap" >
          select  count(*) from  video,course,speaker where video.speaker_id = speaker.id and video.course_id = course.id
-        <where>
             <if test="videoTitle!=null and videoTitle != '' ">
-              and videoTitle like '%' #{videoTitle} '%'
+               and video_title like '%' #{videoTitle} '%'
             </if>
             <if test="speakerId != null and speakerId != ''">
-                and speakerId = #{speakerId}
+                and speaker_id = #{speakerId}
             </if>
             <if test="courseId != null and courseId != ''">
-                and courseId = #{courseId}
+                and course_id = #{courseId}
             </if>
-        </where>
     </select>
     <select id="queryVideosByCourseId" resultType="video">
         select * from video where course_id = #{courseId}
@@ -111,5 +108,18 @@
     <select id="queryCourseByVideoId" resultType="Integer">
         select course_id from  video where id = #{videoId}
     </select>
-
+    <!--查询视频的播放次数  科目表不需要
+        video course
+        平均播放次数
+    -->
+    <select id="queryVideoPlayTime" resultType="java.util.HashMap">
+        select course_id,course_name,round(avg(video_play_times)) avgTimes from video v,course c where v.course_id = c.id
+        group  by course_id, course_name
+    </select>
+    <select id="queryVideoPlayTimes" resultType="Integer">
+        select  video_play_times from video where  id = #{id}
+    </select>
+    <update id="addVideoPlayTimes" parameterType="Integer">
+        update video set  video_play_times = #{num} where id = #{id}
+    </update>
 </mapper>

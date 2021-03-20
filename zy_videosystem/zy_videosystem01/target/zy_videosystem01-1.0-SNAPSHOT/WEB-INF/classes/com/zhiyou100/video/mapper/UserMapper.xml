@@ -19,9 +19,8 @@
         <result property="captcha" column="captcha"/>
     </resultMap>
 
-
     <insert id="addUser" parameterType="user">
-        insert into user(email,password,insert_time) values(#{email},#{password},#{insertTime})
+        insert into user(email,password,insert_time,state,active) values(#{email},#{password},#{insertTime},0,#{active})
     </insert>
     <update id="updateUser" >
         update user set nick_name = #{nickName},sex = #{sex},birthday = #{birthday}, email = #{email}, province = #{province} ,city = #{city},update_time = #{updateTime} where id = #{id}
@@ -35,8 +34,14 @@
     <update id="updateUserByEmail">
          update `user` set password = #{password},captcha = #{captcha} where email = #{email};
     </update>
+    <update id="updateUserState" parameterType="String">
+        update user set state = 1 where  email = #{email};
+    </update>
     <delete id="deleteUserById" parameterType="Integer">
         delete form`user`where id = #{id}
+    </delete>
+    <delete id="deleteUserByEmail" parameterType="String">
+        delete from  user where email = #{email}
     </delete>
 
     <select id="queryAllUsers" resultMap="userMap">
@@ -53,5 +58,11 @@
     </select>
     <select id="checkEmail" resultMap="userMap" parameterType="String">
         select * from  `user` where  email = #{email}
+    </select>
+    <select id="queryStateByEmail" resultType="java.lang.Integer">
+        select state from user where email = #{email}
+    </select>
+    <select id="queryActive" resultType="java.lang.Long">
+         select active from user where email = #{email}
     </select>
 </mapper>

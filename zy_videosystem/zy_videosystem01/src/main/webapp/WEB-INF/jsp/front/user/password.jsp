@@ -32,19 +32,15 @@
                 <div class="proflle_tab_body">
                     <div class="proflle_tab_workplace clearfix">
                         <div class="profile_avatar_area">
-                        
                            <c:if test="${empty user.headUrl}">
 		                         <img id="avatar"  src="static/img/avatar_lg.png" alt="">
 		                      </c:if>
 		                      
 		                      <c:if test="${not empty user.headUrl}">
-		                         <img id="avatar" width="200px" height="200px" src="${user.headUrl}" alt="">
+		                         <img id="avatar" width="200px" height="200px" src="static/img/${user.headUrl}" alt="">
 		                      </c:if>
-                           
                         </div>
-                        
                         <div class="profile_ifo_area">
-                        
                          <c:if test="${not empty message}">
 				            <div>
 				                <strong>${message}</strong>
@@ -53,7 +49,8 @@
                             <form action="${pageContext.request.contextPath}/front/user/resetPwd.action?id=${user.id}" method="post" id="loginForm">
                                 <div class="form_group">
                                     <span class="dd">旧&#x3000;密&#x3000;码：</span>
-                                    <input type="password" id="oldPassword" name="oldPassword" onblur="confirmPwd()"><span id="msg"></span>
+                                    <input type="password" id="oldPassword" name="oldPassword" onblur="checkOldPwd()">
+                                    <span id="msg"></span>
                                 </div>
                                 <div class="form_group">
                                     <span class="dd">新&#x3000;密&#x3000;码：</span>
@@ -62,9 +59,10 @@
                                 <div class="form_group">
                                     <span class="dd">确认新密码：</span>
                                     <input type="password" id="newPassword02" name="newPasswordAgain">
+                                    <span id="msg2"></span>
                                 </div>
                                 <div class="form_submit dd">
-                                    <input type="submit" value="保&#x3000;存">
+                                    <button type="submit"   onclick="return checkDouble()">保&#x3000;存</button>
                                 </div>
                             </form>
                         </div>
@@ -74,13 +72,38 @@
         </div>
     </main>
     <jsp:include page="ufooter.jsp"/>
-    <%@include file="../include/script.html"%>
-   <script type="text/javascript">
-        function confirmPwd() {
-            $.post('/front/user/confirmPwd.action',$('oldPassword').serialize(),function(data){
-                $("#msg").html(data.msg);
-            },'json');
-        }
-   </script>
+   <script>
+           function checkOldPwd() {
+               var oldPassword = $("#oldPassword").val();
+               $.post('/front/user/confirmPwd.action',
+                   {
+                       "id":${user.id},
+                       "oldPassword":oldPassword
+                   },
+                   function(data){
+                       $("#msg").html(data.msg);
+                   },
+                   'json');
+           }
+
+           function checkDouble() {
+               var new1 =  $("#newPassword").val();
+               var new2 = $("#newPassword02").val();
+               console.log(new1);
+               console.log(new2);
+               if(new1 !== new2){
+                   $("#msg2").html("两次输入的密码不一致");
+                   return false;
+               }else {
+                   $("#msg2").html("");
+                   return true;
+               }
+           }
+   </script><%--
+   <%@include file="../include/script.html"%>--%>
+   <script src="static/js/jquery-1.12.4.min.js"></script>
+   <script src="static/js/jquery.validate.min.js"></script>
+   <script src="static/js/jquery-confirm.min.js"></script>
+
 </body>
 </html>

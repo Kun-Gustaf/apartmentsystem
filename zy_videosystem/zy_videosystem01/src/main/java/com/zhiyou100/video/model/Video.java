@@ -20,6 +20,7 @@ public class Video implements Serializable {
     private Integer videoPlayTimes;
     private Course course;
     private Speaker speaker;
+    private String videoLengthStr;
     public Video() {
     }
 
@@ -37,6 +38,35 @@ public class Video implements Serializable {
         this.videoPlayTimes = videoPlayTimes;
         this.course = course;
         this.speaker = speaker;
+    }
+
+    public Video(Integer id, String videoTitle, Integer speakerId, Integer courseId, Integer videoLength, String videoImageUrl, String videoUrl, String videoDesc, Timestamp insertTime, Timestamp updateTime, Integer videoPlayTimes, Course course, Speaker speaker, String videoLengthStr) {
+        this.id = id;
+        this.videoTitle = videoTitle;
+        this.speakerId = speakerId;
+        this.courseId = courseId;
+        this.videoLength = videoLength;
+        this.videoImageUrl = videoImageUrl;
+        this.videoUrl = videoUrl;
+        this.videoDesc = videoDesc;
+        this.insertTime = insertTime;
+        this.updateTime = updateTime;
+        this.videoPlayTimes = videoPlayTimes;
+        this.course = course;
+        this.speaker = speaker;
+        this.videoLengthStr = videoLengthStr;
+    }
+
+    public String getVideoLengthStr() {
+        return videoLengthStr;
+    }
+
+    public void setVideoLengthStr() {
+        int hour = videoLength / 3600;
+        int temp = videoLength % 3600;
+        int minute = temp / 60;
+        int second = temp % 60;
+        this.videoLengthStr = hour+":"+minute+":"+second;
     }
 
     public Course getCourse() {

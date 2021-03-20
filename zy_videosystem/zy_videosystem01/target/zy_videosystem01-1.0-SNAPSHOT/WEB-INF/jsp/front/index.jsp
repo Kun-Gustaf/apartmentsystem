@@ -107,7 +107,7 @@
     <div class="form_area">
         <div class="container">
             <p class="title"><b>这个世界上可以选择的很多，可以改变命运的选择很少<br />你现在准备好向梦想出发了吗？</b></p>
-            <form id="iform" action="/090/plus/dmail.php" enctype="multipart/form-data" method="post">
+            <form id="iform" action="${pageContext.request.contextPath}/090/plus/dmail.php" enctype="multipart/form-data" method="post">
                 <div class="form_line1"></div>
                 <div class="form_line2"></div>
                 <div class="wrap">
@@ -127,8 +127,8 @@
 
     <%@include file="include/footer.jsp"%>
     <%@include file="include/script.html"%>
-    <script src="/static/js/md5.js"></script>
-    <script src="/static/js/sha1.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/md5.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/sha1.js"></script>
 </body>
 
 </html>

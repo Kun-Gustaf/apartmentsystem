@@ -32,7 +32,7 @@
     
     <%@include file="../include/footer.jsp"%>
     <%@include file="../include/script.html"%>
-    <script src="static/js/video.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/video.js"></script>
     <script>
         $(function () {
         	var id = $('#videoId').val();

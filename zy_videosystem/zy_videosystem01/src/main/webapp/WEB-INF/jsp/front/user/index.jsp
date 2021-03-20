@@ -40,7 +40,7 @@
 		                         <img id="avatar" src="${pageContext.request.contextPath}/static/img/avatar_lg.png" alt="图片无法加载">
 		                      </c:if>
 		                      <c:if test="${not empty user.headUrl}">
-		                         <img id="avatar" width="200px" height="200px" src="${user.headUrl}" alt="无法加载">
+		                         <img id="avatar" width="200px" height="200px" src="${pageContext.request.contextPath}static/img/${user.headUrl}" alt="无法加载">
 		                      </c:if>
                             <p>
                             <c:if test="${not empty user.nickName}">

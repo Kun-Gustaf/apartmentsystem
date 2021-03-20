@@ -26,4 +26,6 @@ public interface UserService {
     void updateUserByEmail(User user);
 
     ResultObject checkMail(String email);
+
+    ResultObject activeAccount(String email);
 }

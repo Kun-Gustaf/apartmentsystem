@@ -31,11 +31,9 @@ public class FrontIndexController {
     @RequestMapping(value = "/front/user/login.action",method = RequestMethod.POST)
     @ResponseBody
     public ResultObject login(String email, String password, HttpServletRequest req) throws IOException {
-        System.out.println(email+password );
-        password = MD5Utils.getMD5String(password+MD5Utils.SALT);
-        ResultObject result = userService.getUserByEmailAndPwd(email, password);
+        System.out.println("传过来的值："+email+password );
+        ResultObject result = userService.getUserByEmailAndPwd(email, MD5Utils.getMD5String(password+ MD5Utils.SALT));
         System.out.println(result);
-
         HttpSession session = req.getSession();
         if(result.getCode() == 200){
             session.setAttribute("user",result.getData());

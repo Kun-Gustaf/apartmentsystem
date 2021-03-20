@@ -19,7 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -42,20 +45,20 @@ public class FrontUserController {
     }
 
     @RequestMapping("/toProfile.action")
-    public String profile(HttpSession session, String nickName, Integer sex, String birthday, String email, String province, String city) {
-        User user = (User) session.getAttribute("user");
-        user.setNickName(nickName);
-        user.setSex(sex);
-        user.setEmail(email);
-        user.setBirthday(new Timestamp(new Date(birthday).getTime()));
-        user.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-        user.setProvince(province);
-        user.setCity(city);
-        user.setBirthday(new Timestamp(System.currentTimeMillis()));
+    public String profile(HttpSession session, String birthdayStr, User user) throws ParseException {
+        System.out.println(birthdayStr);
         try{
+            user.setBirthday(new SimpleDateFormat("yyyy-MM-dd").parse(birthdayStr));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        System.out.println(user.getBirthday());
+        user.setUpdateTime(Timestamp.valueOf(LocalDateTime.now()));
+        System.out.println(user);
+        try {
             userService.updateUser(user);
             session.setAttribute("user", userService.getUserById(user.getId()));
-        }catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "front/user/index";
@@ -67,23 +70,24 @@ public class FrontUserController {
     }
 
     @RequestMapping("/resetPwd.action")
-    public String resetPwd(HttpServletRequest req, Integer id, String oldPassword, String newPassword, String newPasswordAgain) {
-        User user1 = userService.getUserById(id);
-        if (!user1.getPassword().equals(oldPassword)) {
-            req.setAttribute("message", "输入的原密码不正确");
-            return "front/user/password";
-        }
-        if (newPassword == null && !newPassword.equals(newPasswordAgain)) {
-            req.setAttribute("message", "两次输入的密码不一致");
-        } else {
+    public String resetPwd(HttpSession session, Integer id, String newPassword) {
             User user = new User();
             user.setId(id);
-            user.setPassword(newPassword);
+            user.setPassword(MD5Utils.getMD5String(newPassword + MD5Utils.SALT));
             user.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+            System.out.println("加密后的密码："+user.getPassword());
             userService.resetPwd(user);
-            return "front/user/index";
-        }
-        return "front/user/password";
+            session.removeAttribute("user");
+            return "/front/index";
+    }
+    @RequestMapping("/confirmPwd.action")
+    @ResponseBody
+    public ResultObject confirmPwd(Integer id, String oldPassword) {
+        User user =  new User();
+        user.setId(id);
+        System.out.println("Id:"+id+",旧密码："+oldPassword);
+        user.setPassword(MD5Utils.getMD5String(oldPassword+MD5Utils.SALT));
+        return userService.confirmPwd(user);
     }
 
     @RequestMapping("/avatar.action")
@@ -92,39 +96,41 @@ public class FrontUserController {
     }
 
     @RequestMapping("/resetAvatar.action")
-    public String resetAvatar(String headUrl, Integer id,HttpSession session) throws IOException {
+    public String resetAvatar(MultipartFile headUrl, Integer id, HttpSession session) throws IOException {
+        String originalFilename = headUrl.getOriginalFilename();
+        String filename = UUID.randomUUID().toString().replaceAll("-", "");
+        File file = new File("D:\\space\\code\\zy_videosystem\\zy_videosystem01\\src\\main\\webapp\\static\\img\\"+filename + originalFilename);
+        headUrl.transferTo(file);
         User user = new User();
         user.setId(id);
-        user.setHeadUrl(headUrl);
+        user.setHeadUrl(file.getName());
         user.setUpdateTime(new Timestamp(System.currentTimeMillis()));
         System.out.println(user);
         userService.updateAvatar(user);
-        user = userService.getUserById(user.getId());
-        session.setAttribute("user",user);
+        session.setAttribute("user", userService.getUserById(user.getId()));
         return "front/user/index";
     }
 
     @RequestMapping("/register.action")
     @ResponseBody
-    public ResultObject register(String email,String password){
-        System.out.println(email+"-------------------"+password);
+    public ResultObject register(String email, String password) {
+        System.out.println(email + "-------------------" + password);
         User user = new User();
         user.setEmail(email);
-        user.setPassword(MD5Utils.getMD5String(password+MD5Utils.SALT));
+        user.setPassword(MD5Utils.getMD5String(password + MD5Utils.SALT));
         return userService.regitserUser(user);
     }
 
-    @RequestMapping("/confirmPwd.action")
-    @ResponseBody
-    public ResultObject confirmPwd(HttpSession session,String oldPassword){
-        User user = (User) session.getAttribute("user");
-        System.out.println(user+"======================");
-        user.setPassword(oldPassword);
-        return userService.confirmPwd(user);
+
+    @RequestMapping("/activeAccount.action")
+    public String activeAccount(Model model,String email){
+        ResultObject resultObject = userService.activeAccount(email);
+        model.addAttribute("result",resultObject);
+        return "/front/user/activeAccount";
     }
 
     @RequestMapping("/forgetPwd.action")
-    public String forgetPwd(){
+    public String forgetPwd() {
         return "/front/user/forget_pwd";
     }
 
@@ -135,17 +141,18 @@ public class FrontUserController {
     }
 
     @RequestMapping("/forgetAndResetPwd.action")
-    public String forgetAndResetPwd(Model model, String email, String captcha, String captchaCode){
-        if (captcha != null && captcha.equals(captchaCode)){
-            model.addAttribute("email",email);
-            model.addAttribute("captcha",captcha);
+    public String forgetAndResetPwd(Model model, String email, String captcha, String captchaCode) {
+        if (captcha != null && captcha.equals(captchaCode)) {
+            model.addAttribute("email", email);
+            model.addAttribute("captcha", captcha);
             return "/front/user/reset_pwd";
-        }else {
+        } else {
             return "/front/user/forget_pwd";
         }
     }
-    @RequestMapping( value = "/resetPwd2.action",method = RequestMethod.POST)
-    public String resetPwd(String email,String captcha,String password){
+
+    @RequestMapping(value = "/resetPwd2.action", method = RequestMethod.POST)
+    public String resetPwd(String email, String captcha, String password) {
         User user = new User();
         user.setEmail(email);
         user.setCaptcha(captcha);
@@ -156,7 +163,7 @@ public class FrontUserController {
 
     @RequestMapping("/checkEmail.action")
     @ResponseBody
-    public ResultObject checkEmail(@RequestBody String email){
+    public ResultObject checkEmail(@RequestBody String email) {
         return userService.checkMail(email);
     }
 }

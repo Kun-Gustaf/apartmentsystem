@@ -1,8 +1,10 @@
 package com.zhiyou100.video.model;
 
+
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.sql.Timestamp;
 
 @Component
@@ -10,7 +12,7 @@ public class User implements Serializable {
     private Integer id;
     private String nickName;
     private Integer sex;
-    private Timestamp birthday;
+    private Date birthday;
     private String email;
     private String province;
     private String city;
@@ -19,11 +21,12 @@ public class User implements Serializable {
     private Timestamp insertTime;
     private Timestamp updateTime;
     private String captcha;
+    private Long active;
 
     public User() {
     }
 
-    public User(Integer id, String nickName, Integer sex, Timestamp birthday, String email, String province, String city, String headUrl, String password, Timestamp insertTime, Timestamp updateTime, String captcha) {
+    public User(Integer id, String nickName, Integer sex, Date birthday, String email, String province, String city, String headUrl, String password, Timestamp insertTime, Timestamp updateTime, String captcha) {
         this.id = id;
         this.nickName = nickName;
         this.sex = sex;
@@ -36,6 +39,30 @@ public class User implements Serializable {
         this.insertTime = insertTime;
         this.updateTime = updateTime;
         this.captcha = captcha;
+    }
+
+    public User(Integer id, String nickName, Integer sex, Date birthday, String email, String province, String city, String headUrl, String password, Timestamp insertTime, Timestamp updateTime, String captcha, Long active) {
+        this.id = id;
+        this.nickName = nickName;
+        this.sex = sex;
+        this.birthday = birthday;
+        this.email = email;
+        this.province = province;
+        this.city = city;
+        this.headUrl = headUrl;
+        this.password = password;
+        this.insertTime = insertTime;
+        this.updateTime = updateTime;
+        this.captcha = captcha;
+        this.active = active;
+    }
+
+    public Long getActive() {
+        return active;
+    }
+
+    public void setActive(Long active) {
+        this.active = active;
     }
 
     public Integer getId() {
@@ -62,11 +89,11 @@ public class User implements Serializable {
         this.sex = sex;
     }
 
-    public Timestamp getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Timestamp birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
@@ -139,7 +166,7 @@ public class User implements Serializable {
         return "User{" +
                 "id=" + id +
                 ", nickName='" + nickName + '\'' +
-                ", sex='" + sex + '\'' +
+                ", sex=" + sex +
                 ", birthday=" + birthday +
                 ", email='" + email + '\'' +
                 ", province='" + province + '\'' +
@@ -149,6 +176,7 @@ public class User implements Serializable {
                 ", insertTime=" + insertTime +
                 ", updateTime=" + updateTime +
                 ", captcha='" + captcha + '\'' +
+                ", active=" + active +
                 '}';
     }
 }
