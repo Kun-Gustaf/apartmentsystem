@@ -7,8 +7,8 @@
 <base href="${BaseContext }">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>视频列表 - 视频管理</title>
-<link href="static/css/bootstrap.min.css" rel="stylesheet">
-<link href="static/css/jquery-confirm.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/static/css/jquery-confirm.min.css" rel="stylesheet">
 </head>
 <body>
 	<!-- 引入公用的导航信息 -->
@@ -47,7 +47,6 @@
 			    	</c:forEach>
 			    </select>
 			  </div>
-			  
 			  <button type="submit" class="btn btn-primary">查询</button>
 			</form>
 		</div>
@@ -56,7 +55,7 @@
 		<table class="table table-hover">
  			<thead>
  				<tr>
- 					<th><input type="checkbox" id="checkAll" onclick="checkAll();"></th>
+ 					<th><input type="checkbox" id="checkAll" onclick="selectAll()"></th>
  					<th>序号</th>
  					<th>名称</th>
  					<th>介绍</th>
@@ -72,7 +71,7 @@
  				<c:if test="${not empty pageInfo.results }">
  					<c:forEach items="${pageInfo.results}" var="sp" varStatus="i">
 		 				<tr>
-		 					<td><input type="checkbox" name="checkId" value="${sp.id }" onclick="countCheck();"> </td>
+		 					<td><input type="checkbox" name="checkId" class="checkId" value="${sp.id }" onclick="selectOne(this)"> </td>
 		 					<td>${i.index+1}</td>
 		 					<td>${sp.videoTitle}</td>
 		 					<td>${sp.videoDesc}</td>
@@ -108,44 +107,19 @@
         $('#queryPage').val(page);
         $('#pageForm').submit();
     }
-	//全选
-	function checkAll(){
-		var ca = document.getElementById('checkAll');
-		console.log("是否选中："+ca.checked);
-		var check = ca.checked;
-		//根据全选复选框的状态，来操作上边三个复选框的状态
-		var checkboxes = document.getElementsByName('checkId');
-		for(var i=0;i<checkboxes.length;i++){
-			var c = checkboxes[i];//当前遍历到的checkbox
-			if(check){
-				//如果是全部选中的状态，则把当前遍历的check选中
-				c.checked=true;
-			}else{
-				//如果是不选的状态，则把当前遍历的check非选中
-				c.checked=false;
-			}	
-		}
-		//在修改全选的状态之后调用计数
-		countCheck();
-	}
-	
-	//计数功能，计算有多少复选框选中了
-	function countCheck(){
-		console.log('...count');
-		var count=0;
-		//遍历复选框，对选中的进行计数
-		var checkboxes = document.getElementsByName('checkId');
-		for(var i=0;i<checkboxes.length;i++){
-			var c = checkboxes[i];//当前遍历到的checkbox
-			if(c.checked){
-				count++;
-			}
-		}
-		//把计数更新到按钮徽章上
-		var span = document.getElementById('countSpan');
-		span.innerHTML=count;
-		
-	}
+    function selectAll(obj) {
+        //借助于input标签中的checked属性 布尔值
+        $(".checkId").prop("checked",$("#checkAll").prop("checked"));
+        $('#countSpan').html($(".checkId:checked").length);
+    }
+
+    //选中单个 并且统计选中的数量
+    function selectOne(obj) {
+        //表单过滤选择器 :checked 选中过滤选择器
+        var count =  $(".checkId:checked").length;
+        $("#checkAll").prop("checked", $(".checkId").length === count)
+        $('#countSpan').html(count);
+    }
 	//批量删除操作
 	function batchDelete(){
 		var count=0;
